@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAME TIPS - RTP Live Real-Time</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background">
+        <div class="grid-lines"></div>
+        <div class="luxury-floating"></div>
+        <div class="royal-pattern"></div>
+        <div class="luxury-shine"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <span class="logo-text">TODAY<span>GAMETIPS</span></span>
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    LOGIN
+                </button>
+                <button class="btn register-btn">
+                    <i class="fas fa-user-plus"></i>
+                    DAFTAR
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Hero Banner -->
+        <section class="hero-banner">
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h1 class="banner-title">
+                        <span class="title-main">LIVE <br>GAME TIPS</span>
+                    </h1>
+                    <div class="live-indicator">
+                        <div class="live-pulse"></div>
+                        <span class="live-text">LIVE UPDATE</span>
+                    </div>
+                    <p class="banner-time" id="currentTime"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Provider Navigation -->
+        <section class="providers-section">
+            <div class="providers-grid">
+                <div class="provider-card active" data-provider="mega888">
+                    <div class="provider-icon">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <div class="provider-name">Mega888</div>
+                </div>
+                
+                <div class="provider-card" data-provider="918kiss">
+                    <div class="provider-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="provider-name">918Kiss</div>
+                </div>
+                
+                <div class="provider-card" data-provider="pussy888">
+                    <div class="provider-icon">
+                        <i class="fas fa-cat"></i>
+                    </div>
+                    <div class="provider-name">Pussy888</div>
+                </div>
+                
+                <div class="provider-card" data-provider="megah5">
+                    <div class="provider-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="provider-name">Mega H5</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Showcase -->
+        <section class="games-showcase">
+            <div class="games-grid" id="gamesContainer">
+                <!-- Games will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
