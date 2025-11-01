@@ -105,7 +105,6 @@ body {
     }
 }
 
-/* Hapus element background yang lama dari HTML */
 .grid-lines,
 .luxury-floating,
 .royal-pattern,
@@ -113,7 +112,6 @@ body {
     display: none;
 }
 
-/* Perbaiki luxury-glow untuk lebih subtle */
 .luxury-glow {
     position: fixed;
     top: 0;
@@ -199,67 +197,6 @@ body {
     animation: royalPulse 4s ease-out infinite;
 }
 
-.grid-lines {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
-    background-size: 80px 80px, 80px 80px;
-    animation: luxuryGridMove 25s linear infinite;
-}
-
-.luxury-floating {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 15% 25%, rgba(255, 215, 0, 0.15) 0%, transparent 8%),
-        radial-gradient(circle at 85% 65%, rgba(255, 248, 220, 0.12) 0%, transparent 6%),
-        radial-gradient(circle at 45% 85%, rgba(212, 175, 55, 0.1) 0%, transparent 7%);
-    animation: luxuryFloat 30s ease-in-out infinite;
-    z-index: -2;
-}
-
-.royal-pattern {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 50% 50%, 
-            rgba(255, 215, 0, 0.05) 0%, 
-            transparent 60%);
-    animation: royalPatternRotate 40s linear infinite;
-    z-index: -2;
-}
-
-.luxury-shine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        125deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.03) 45%,
-        rgba(255, 255, 255, 0.08) 50%,
-        rgba(255, 255, 255, 0.03) 55%,
-        transparent 100%
-    );
-    animation: luxuryShine 8s ease-in-out infinite;
-    z-index: -1;
-}
-
-/* Animations */
-@keyframes luxuryBackgroundShift {
-    0%, 100% { background-position: 0% 0%, 0% 0%, 20% 30%, 80% 70%, 40% 80%; }
-    25% { background-position: 100% 100%, 50% 50%, 30% 40%, 70% 60%, 50% 70%; }
-    50% { background-position: 0% 100%, 100% 0%, 40% 50%, 60% 50%, 60% 60%; }
-    75% { background-position: 100% 0%, 0% 100%, 50% 60%, 50% 40%, 70% 50%; }
-}
-
 @keyframes particleDrift {
     0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
     10% { opacity: 1; }
@@ -290,31 +227,6 @@ body {
 @keyframes royalPulse {
     0% { transform: scale(0); opacity: 0.8; border-color: rgba(255, 215, 0, 0.5); }
     100% { transform: scale(1.5); opacity: 0; border-color: rgba(255, 215, 0, 0.1); }
-}
-
-@keyframes glowShift {
-    0% { background-position: 0% 0%, 100% 100%, 50% 50%; }
-    100% { background-position: 100% 100%, 0% 0%, 80% 80%; }
-}
-
-@keyframes luxuryGridMove {
-    0% { transform: translate(0, 0) rotate(0deg); background-position: 0px 0px, 0px 0px; }
-    100% { transform: translate(80px, 80px) rotate(0.5deg); background-position: 80px 80px, 80px 80px; }
-}
-
-@keyframes luxuryFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
-    50% { transform: translate(15px, -10px) scale(0.95); opacity: 0.9; }
-}
-
-@keyframes royalPatternRotate {
-    0% { transform: rotate(0deg) scale(1); }
-    100% { transform: rotate(360deg) scale(1); }
-}
-
-@keyframes luxuryShine {
-    0%, 100% { transform: translateX(-100%) skewX(-15deg); }
-    50% { transform: translateX(200%) skewX(-15deg); }
 }
 
 @keyframes borderGlow {
@@ -358,6 +270,15 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes subtlePulse {
+    0%, 100% {
+        box-shadow: 0 0 0 rgba(255, 215, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -368,7 +289,6 @@ body {
     to { text-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor; }
 }
 
-/* Header */
 .header {
     background: rgba(17, 17, 17, 0.95);
     backdrop-filter: blur(25px) saturate(180%);
@@ -462,7 +382,6 @@ body {
     color: var(--black);
 }
 
-/* Hero Banner */
 .hero-banner {
     padding: 4rem 2rem;
     text-align: center;
@@ -554,7 +473,6 @@ body {
     letter-spacing: 1px;
 }
 
-/* Providers Section */
 .providers-section {
     padding: 2rem;
     max-width: 1200px;
@@ -612,8 +530,8 @@ body {
 }
 
 .provider-icon {
-    width: 150px;    /* Lebar diperbesar */
-    height: 150px;    /* Tinggi diperbesar */
+    width: 100px;
+    height: 60px;
     background: transparent;
     border-radius: 12px;
     display: flex;
@@ -621,27 +539,21 @@ body {
     justify-content: center;
     margin: 0 auto 1rem;
     transition: all 0.3s ease;
-    padding: 8px;
+    padding: 5px;
     border: 2px solid rgba(255, 215, 0, 0.3);
 }
 
 .provider-logo {
     width: 100%;
     height: 100%;
-    object-fit: contain;    /* Pastikan logo tidak terdistorsi */
+    object-fit: contain;
     border-radius: 8px;
     transition: all 0.3s ease;
-    max-width: 150px;       /* Batas maksimal lebar */
-    max-height: 150px;       /* Batas maksimal tinggi */
 }
 
 .provider-card:hover .provider-logo {
-    transform: scale(1.15); /* Perbesar sedikit saat hover */
-    filter: brightness(1.2); /* Tambahkan kecerahan */
-}
-
-.provider-card:hover .provider-icon {
-    transform: scale(1.1) rotate(10deg);
+    transform: scale(1.15);
+    filter: brightness(1.2);
 }
 
 .provider-name {
@@ -672,21 +584,19 @@ body {
     width: 60px;
 }
 
-/* Games Showcase */
 .games-showcase {
     padding: 2rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     transition: all 0.4s ease;
 }
 
-/* Animasi untuk game items */
 .game-item {
     position: relative;
     background: linear-gradient(145deg, rgba(26, 18, 11, 0.9) 0%, rgba(42, 28, 16, 0.8) 100%);
@@ -700,22 +610,10 @@ body {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Staggered animation delay */
-.game-item:nth-child(1) { animation-delay: 0.1s; }
-.game-item:nth-child(2) { animation-delay: 0.2s; }
-.game-item:nth-child(3) { animation-delay: 0.3s; }
-.game-item:nth-child(4) { animation-delay: 0.4s; }
-.game-item:nth-child(5) { animation-delay: 0.5s; }
-.game-item:nth-child(6) { animation-delay: 0.6s; }
+.game-item:nth-child(3n+1) { animation-delay: 0.1s; }
+.game-item:nth-child(3n+2) { animation-delay: 0.2s; }
+.game-item:nth-child(3n+3) { animation-delay: 0.3s; }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Enhanced Hover Effects */
 .game-item:hover {
     transform: translateY(-8px) scale(1.02);
     border-color: rgba(255, 215, 0, 0.5);
@@ -723,20 +621,6 @@ body {
         0 15px 40px rgba(255, 215, 0, 0.2),
         0 5px 15px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-/* Subtle Pulse Effect untuk RTP Indicator */
-.rtp-indicator {
-    animation: subtlePulse 3s ease-in-out infinite;
-}
-
-@keyframes subtlePulse {
-    0%, 100% {
-        box-shadow: 0 0 0 rgba(255, 215, 0, 0.1);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-    }
 }
 
 .game-image {
@@ -772,7 +656,6 @@ body {
     opacity: 0.7;
 }
 
-/* RTP Indicator */
 .rtp-indicator {
     background: rgba(0, 0, 0, 0.9);
     border: 2px solid var(--gold);
@@ -781,6 +664,7 @@ body {
     margin-top: 0.5rem;
     position: relative;
     overflow: hidden;
+    animation: subtlePulse 3s ease-in-out infinite;
 }
 
 .rtp-header {
@@ -808,6 +692,7 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: var(--text-glow);
+    transition: all 0.8s ease;
 }
 
 .rtp-bar-container {
@@ -856,34 +741,22 @@ body {
     animation: popIn 0.3s ease-out;
 }
 
-/* Animations */
-.games-grid.slide-out {
-    opacity: 0;
-    transform: translateX(-30px);
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+    .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .games-showcase {
+        padding: 1.5rem;
+    }
+    
+    .game-image {
+        height: 180px;
+    }
 }
 
-.games-grid.slide-in {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.loading-spinner {
-    display: none;
-    text-align: center;
-    padding: 2rem;
-}
-
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(255, 215, 0, 0.3);
-    border-left: 4px solid var(--gold);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
     .header-content {
         padding: 0 1rem;
@@ -909,8 +782,12 @@ body {
     }
     
     .games-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+    
+    .game-image {
+        height: 150px;
     }
     
     .btn {
@@ -924,9 +801,12 @@ body {
     }
     
     .provider-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 1.2rem;
+        width: 80px;
+        height: 50px;
+    }
+    
+    .rtp-value {
+        font-size: 1.4rem;
     }
 }
 
@@ -942,9 +822,58 @@ body {
     .live-text {
         font-size: 0.9rem;
     }
+    
+    .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+    }
+    
+    .games-showcase {
+        padding: 0.8rem;
+    }
+    
+    .game-image {
+        height: 120px;
+    }
+    
+    .rtp-value {
+        font-size: 1.2rem;
+    }
+    
+    .rtp-indicator {
+        padding: 0.8rem;
+    }
+    
+    .provider-icon {
+        width: 70px;
+        height: 45px;
+    }
+    
+    .provider-card {
+        padding: 1rem 0.8rem;
+        min-width: 90px;
+    }
 }
 
-/* Scrollbar */
+@media (max-width: 360px) {
+    .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.6rem;
+    }
+    
+    .game-image {
+        height: 100px;
+    }
+    
+    .rtp-value {
+        font-size: 1.1rem;
+    }
+    
+    .rtp-indicator {
+        padding: 0.6rem;
+    }
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
