@@ -180,7 +180,6 @@ class GamePlatform {
             const provider = card.dataset.provider;
             const iconElement = card.querySelector('.provider-icon');
             
-            // PATH BARU: providers/
             iconElement.innerHTML = `
                 <img src="providers/${provider}-logo.png" 
                      alt="${provider}" 
@@ -240,19 +239,16 @@ class GamePlatform {
 
     generateGames() {
         const allGameFiles = [
-            '7-crazy.png', 'aladdin-wishes.png', 'amazing-thailand.png', 
-            'aztac.png', 'big-prosperity.png', 'big-shot.png', 
-            'bonus-bears.png', 'boykings-treasure.png', 'captains-treasure.png', 
-            'cherry-love.png', 'coyote-cash.png', 'crystal-waters.png', 
-            'dolphin-reef.png', 'dragon-gold.png', 'fairy-garden-plus.png', 
-            'fortune-panda.png', 'god-of-wealth.png', 'golden-lotus.png', 
-            'great-blue.png', 'great-china.png', 'great-stars.png', 
-            'green-light.png', 'highway-kings.png', 'Iceland.png', 
-            'indian-myth.png', 'jin-qian-wa.png', 'magical-spins.png', 
-            'panther-moon.png', 'pay-dirt.png', 'rally-championship.png', 
-            'robin-hood.png', 'safari-heat.png', 'sun-wu-kong.png', 
-            'top-gun.png', 'triple-twister.png'
-        ];
+                    '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png',
+                    '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png',
+                    '15.png', '16.png', '17.png', '18.png', '19.png', '20.png', '21.png',
+                    '22.png', '23.png', '24.png', '25.png', '26.png', '27.png', '28.png',
+                    '29.png', '30.png', '31.png', '32.png', '33.png', '34.png', '35.png',
+                    '36.png', '37.png', '38.png', '39.png', '40.png', '41.png', '42.png',
+                    '43.png', '44.png', '45.png', '46.png', '47.png', '48.png', '49.png',
+                    '50.png', '51.png', '52.png', '53.png', '54.png', '55.png', '56.png',
+                    '57.png', '58.png', '59.png'
+                    ];
 
         const providers = ['mega888', '918kiss', 'pussy888', 'megah5'];
         
@@ -266,7 +262,8 @@ class GamePlatform {
             const providerGames = shuffledGames.slice(0, this.gameCount);
             
             providerGames.forEach((fileName, index) => {
-                const baseRtp = 85 + Math.random() * 15;
+                // RTP AWAL: 80% - 98%
+                const baseRtp = 80 + Math.random() * 18;
                 
                 this.games.push({
                     id: `${provider}-${index}-${Date.now()}`,
@@ -349,10 +346,10 @@ class GamePlatform {
             
             let currentRtp = parseFloat(rtpValue.textContent);
             
-            // Start RTP animation for this game
             setInterval(() => {
                 const fluctuation = (Math.random() - 0.5) * 0.8;
-                const newRtp = Math.max(85, Math.min(100, currentRtp + fluctuation));
+                // BATASI RTP: MIN 80% - MAX 98%
+                const newRtp = Math.max(80, Math.min(98, currentRtp + fluctuation));
                 const change = newRtp - currentRtp;
                 
                 const formattedRtp = parseFloat(newRtp.toFixed(1));
