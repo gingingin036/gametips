@@ -530,8 +530,8 @@ body {
 }
 
 .provider-icon {
-    width: 100px;
-    height: 60px;
+    width: 150px;
+    height: 150px;
     background: transparent;
     border-radius: 12px;
     display: flex;
@@ -895,3 +895,4 @@ body {
     background: rgba(255, 215, 0, 0.3);
     color: white;
 }
+
