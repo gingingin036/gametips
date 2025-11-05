@@ -241,7 +241,7 @@ class GamePlatform {
         // Generate array 1.png sampai 59.png
         const allGameFiles = Array.from({length: 59}, (_, i) => `${i + 1}.png`);
 
-        const providers = ['mega888', '918kiss', 'pussy888', 'megah5'];
+        const providers = ['mega888', '918kiss', 'pussy888', 'megah5', 'pragmatic', 'jili'];
         
         this.games = [];
 
@@ -284,35 +284,47 @@ class GamePlatform {
         
         const filteredGames = this.games.filter(game => game.provider === this.currentProvider);
         
-        container.innerHTML = filteredGames.map(game => `
-            <div class="game-item" data-game="${game.id}">
-                <img src="mega888/${game.image}" 
-                     alt="${game.image.split('.')[0]}" 
-                     class="game-image"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <div class="game-placeholder" style="display: none;">
-                    <i class="fas fa-gamepad"></i>
-                    <span>${game.image.split('.')[0]}</span>
+        container.innerHTML = filteredGames.map(game => {
+    // Tentukan folder berdasarkan provider
+    let folder = 'mega888'; // default
+    
+    if (game.provider === 'jili') {
+        folder = 'jili';
+    } else if (game.provider === 'pragmatic') {
+        folder = 'pragmatic';
+    }
+    // pussy888, megah5, mega888, 918kiss tetap pakai folder mega888
+
+    return `
+    <div class="game-item" data-game="${game.id}">
+        <img src="${folder}/${game.image}"  // ← PAKAI FOLDER YANG SESUAI
+             alt="${game.image.split('.')[0]}" 
+             class="game-image"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="game-placeholder" style="display: none;">
+            <i class="fas fa-gamepad"></i>
+            <span>${game.image.split('.')[0]}</span>
+        </div>
+        
+        <div class="rtp-indicator">
+            <div class="rtp-header">
+                <div class="rtp-label">RTP LIVE</div>
+                <div class="rtp-value">${game.currentRtp}%</div>
+            </div>
+            <div class="rtp-bar-container">
+                <div class="rtp-bar" style="width: ${game.currentRtp}%"></div>
+                <div class="rtp-bar-glow"></div>
+                <div class="fluctuation fluctuation-up" style="display: none;">
+                    <i class="fas fa-arrow-up"></i>
                 </div>
-                
-                <div class="rtp-indicator">
-                    <div class="rtp-header">
-                        <div class="rtp-label">RTP LIVE</div>
-                        <div class="rtp-value">${game.currentRtp}%</div>
-                    </div>
-                    <div class="rtp-bar-container">
-                        <div class="rtp-bar" style="width: ${game.currentRtp}%"></div>
-                        <div class="rtp-bar-glow"></div>
-                        <div class="fluctuation fluctuation-up" style="display: none;">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
-                        <div class="fluctuation fluctuation-down" style="display: none;">
-                            <i class="fas fa-arrow-down"></i>
-                        </div>
-                    </div>
+                <div class="fluctuation fluctuation-down" style="display: none;">
+                    <i class="fas fa-arrow-down"></i>
                 </div>
             </div>
-        `).join('');
+        </div>
+    </div>
+    `;
+}).join('');
 
         await new Promise(resolve => setTimeout(resolve, 50));
         
