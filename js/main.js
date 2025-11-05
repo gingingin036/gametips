@@ -1,13 +1,10 @@
-// Luxury Golden Particle Storm
+// OPTIMIZED Luxury Golden Particle Storm
 function createGoldenStorm() {
     const stormContainer = document.createElement('div');
     stormContainer.className = 'golden-storm';
     document.body.appendChild(stormContainer);
 
-    const luxuryGlow = document.createElement('div');
-    luxuryGlow.className = 'luxury-glow';
-    document.body.appendChild(luxuryGlow);
-
+    // REDUCED particle counts for better performance
     function createGoldenParticle() {
         const particle = document.createElement('div');
         particle.className = 'golden-particle';
@@ -21,9 +18,8 @@ function createGoldenStorm() {
         
         stormContainer.appendChild(particle);
         
-        setTimeout(() => {
-            particle.remove();
-        }, 8000);
+        // Auto cleanup
+        setTimeout(() => particle.remove(), 8000);
     }
     
     function createLuxuryOrb() {
@@ -39,9 +35,7 @@ function createGoldenStorm() {
         
         stormContainer.appendChild(orb);
         
-        setTimeout(() => {
-            orb.remove();
-        }, 12000);
+        setTimeout(() => orb.remove(), 12000);
     }
 
     function createGoldenSparkle() {
@@ -57,52 +51,51 @@ function createGoldenStorm() {
         
         stormContainer.appendChild(sparkle);
         
-        setTimeout(() => {
-            sparkle.remove();
-        }, 4000);
+        setTimeout(() => sparkle.remove(), 4000);
     }
 
+    // REDUCED initial particle count
     function initializeStorm() {
-        for (let i = 0; i < 20; i++) {
-            setTimeout(() => {
-                createGoldenParticle();
-            }, i * 100);
+        for (let i = 0; i < 8; i++) { // ↓ from 20 to 8
+            setTimeout(() => createGoldenParticle(), i * 200);
         }
 
-        for (let i = 0; i < 10; i++) {
-            setTimeout(() => {
-                createLuxuryOrb();
-            }, i * 200);
+        for (let i = 0; i < 4; i++) { // ↓ from 10 to 4
+            setTimeout(() => createLuxuryOrb(), i * 400);
         }
 
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => {
-                createGoldenSparkle();
-            }, i * 150);
+        for (let i = 0; i < 6; i++) { // ↓ from 15 to 6
+            setTimeout(() => createGoldenSparkle(), i * 300);
         }
     }
 
+    // REDUCED maintenance frequency
     function maintainStorm() {
         setInterval(() => {
-            if (Math.random() < 0.7) createGoldenParticle();
-            if (Math.random() < 0.3) createLuxuryOrb();
-            if (Math.random() < 0.5) createGoldenSparkle();
-        }, 1000);
+            if (Math.random() < 0.4) createGoldenParticle(); // ↓ from 0.7
+            if (Math.random() < 0.2) createLuxuryOrb();      // ↓ from 0.3
+            if (Math.random() < 0.3) createGoldenSparkle();  // ↓ from 0.5
+        }, 2000); // ↑ from 1000ms to 2000ms
     }
 
+    // OPTIMIZED mousemove with throttling
+    let lastMouseMove = 0;
     document.addEventListener('mousemove', (e) => {
-        if (Math.random() < 0.1) {
+        const now = Date.now();
+        if (now - lastMouseMove < 500) return; // Throttle to 500ms
+        
+        lastMouseMove = now;
+        
+        if (Math.random() < 0.05) { // ↓ from 0.1
             const interactiveParticle = document.createElement('div');
             interactiveParticle.className = 'golden-sparkle';
             interactiveParticle.style.left = `${e.clientX}px`;
             interactiveParticle.style.top = `${e.clientY}px`;
-            interactiveParticle.style.animation = 'sparkleTwinkle 2s ease-out forwards';
+            interactiveParticle.style.animation = 'sparkleTwinkle 1.5s ease-out forwards';
             
             stormContainer.appendChild(interactiveParticle);
             
-            setTimeout(() => {
-                interactiveParticle.remove();
-            }, 2000);
+            setTimeout(() => interactiveParticle.remove(), 1500);
         }
     });
 
@@ -121,12 +114,17 @@ class TypographyEnhancer {
     }
 
     addScrollEffects() {
+        // DEBOUNCED scroll for better performance
+        let scrollTimeout;
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroBanner = document.querySelector('.hero-banner');
-            if (heroBanner) {
-                heroBanner.style.transform = `translateY(${scrolled * 0.3}px)`;
-            }
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrolled = window.pageYOffset;
+                const heroBanner = document.querySelector('.hero-banner');
+                if (heroBanner) {
+                    heroBanner.style.transform = `translateY(${scrolled * 0.2}px)`; // Reduced effect
+                }
+            }, 10);
         });
     }
 
@@ -147,17 +145,16 @@ class TypographyEnhancer {
     }
 
     createSparkleEffect(event, element) {
-        for (let i = 0; i < 3; i++) {
+        // REDUCED sparkle count
+        for (let i = 0; i < 2; i++) { // ↓ from 3 to 2
             const sparkle = document.createElement('div');
             sparkle.className = 'golden-sparkle';
             sparkle.style.left = `${Math.random() * 100}%`;
             sparkle.style.top = `${Math.random() * 100}%`;
-            sparkle.style.animationDelay = `${Math.random() * 2}s`;
+            sparkle.style.animationDelay = `${Math.random() * 1.5}s`; // Faster
             element.appendChild(sparkle);
             
-            setTimeout(() => {
-                sparkle.remove();
-            }, 2000);
+            setTimeout(() => sparkle.remove(), 1500); // Faster cleanup
         }
     }
 }
@@ -172,20 +169,6 @@ class GamePlatform {
         this.currentSeed = 0;
         this.animationSystem = new AnimationSystem();
         this.init();
-        this.updateProviderLogos();
-    }
-
-    updateProviderLogos() {
-        document.querySelectorAll('.provider-card').forEach(card => {
-            const provider = card.dataset.provider;
-            const iconElement = card.querySelector('.provider-icon');
-            
-            iconElement.innerHTML = `
-                <img src="providers/${provider}-logo.png" 
-                     alt="${provider}" 
-                     class="provider-logo">
-            `;
-        });
     }
 
     init() {
@@ -193,7 +176,6 @@ class GamePlatform {
         this.setupGameRotation();
         this.generateGames();
         this.setupEventListeners();
-        this.updateProviderLogos();
         
         setInterval(() => this.updateTime(), 1000);
     }
@@ -206,7 +188,7 @@ class GamePlatform {
             month: 'long', 
             day: 'numeric',
             hour: '2-digit',
-            minute: '2-digit',
+            minute: '2-digit', 
             second: '2-digit',
             timeZone: 'Asia/Kuala_Lumpur'
         };
@@ -238,27 +220,29 @@ class GamePlatform {
     }
 
     generateGames() {
-        // Generate array 1.png sampai 59.png
-        const allGameFiles = Array.from({length: 59}, (_, i) => `${i + 1}.png`);
-
-        const providers = ['mega888', '918kiss', 'pussy888', 'megah5', 'pragmatic', 'jili'];
+        const providers = [
+            { name: 'mega888', files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) },
+            { name: '918kiss', files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) },
+            { name: 'pussy888', files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) },
+            { name: 'megah5', files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) },
+            { name: 'jili', files: Array.from({length: 50}, (_, i) => `${i + 1}.png`) },
+            { name: 'pragmatic', files: Array.from({length: 40}, (_, i) => `pm${i + 1}.png`) }
+        ];
         
         this.games = [];
 
         providers.forEach(provider => {
-            const shuffledGames = [...allGameFiles]
-                .sort(() => Math.random() - 0.5)
+            const shuffledGames = [...provider.files]
                 .sort(() => Math.random() - 0.5);
             
             const providerGames = shuffledGames.slice(0, this.gameCount);
             
             providerGames.forEach((fileName, index) => {
-                // RTP AWAL: 80% - 98%
                 const baseRtp = 80 + Math.random() * 18;
                 
                 this.games.push({
-                    id: `${provider}-${index}-${Date.now()}`,
-                    provider: provider,
+                    id: `${provider.name}-${index}-${Date.now()}`,
+                    provider: provider.name,
                     image: fileName,
                     rtp: parseFloat(baseRtp.toFixed(1)),
                     currentRtp: parseFloat(baseRtp.toFixed(1))
@@ -280,57 +264,52 @@ class GamePlatform {
         container.style.opacity = '0';
         container.style.transform = 'translateY(20px)';
         
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise(resolve => setTimeout(resolve, 200)); // Faster transition
         
         const filteredGames = this.games.filter(game => game.provider === this.currentProvider);
         
         container.innerHTML = filteredGames.map(game => {
-    // Tentukan folder berdasarkan provider
-    let folder = 'mega888'; // default
-    
-    if (game.provider === 'jili') {
-        folder = 'jili';
-    } else if (game.provider === 'pragmatic') {
-        folder = 'pragmatic';
-    }
-    // pussy888, megah5, mega888, 918kiss tetap pakai folder mega888
+            let folder = 'mega888';
+            if (game.provider === 'jili') folder = 'jili';
+            else if (game.provider === 'pragmatic') folder = 'pragmatic';
 
-    return `
-    <div class="game-item" data-game="${game.id}">
-        <img src="${folder}/${game.image}"  // ← PAKAI FOLDER YANG SESUAI
-             alt="${game.image.split('.')[0]}" 
-             class="game-image"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-        <div class="game-placeholder" style="display: none;">
-            <i class="fas fa-gamepad"></i>
-            <span>${game.image.split('.')[0]}</span>
-        </div>
-        
-        <div class="rtp-indicator">
-            <div class="rtp-header">
-                <div class="rtp-label">RTP LIVE</div>
-                <div class="rtp-value">${game.currentRtp}%</div>
-            </div>
-            <div class="rtp-bar-container">
-                <div class="rtp-bar" style="width: ${game.currentRtp}%"></div>
-                <div class="rtp-bar-glow"></div>
-                <div class="fluctuation fluctuation-up" style="display: none;">
-                    <i class="fas fa-arrow-up"></i>
+            return `
+            <div class="game-item" data-game="${game.id}">
+                <img src="${folder}/${game.image}" 
+                     alt="${game.image.split('.')[0]}" 
+                     class="game-image"
+                     loading="lazy" // ADDED lazy loading
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="game-placeholder" style="display: none;">
+                    <i class="fas fa-gamepad"></i>
+                    <span>${game.image.split('.')[0]}</span>
                 </div>
-                <div class="fluctuation fluctuation-down" style="display: none;">
-                    <i class="fas fa-arrow-down"></i>
+                
+                <div class="rtp-indicator">
+                    <div class="rtp-header">
+                        <div class="rtp-label">RTP LIVE</div>
+                        <div class="rtp-value">${game.currentRtp}%</div>
+                    </div>
+                    <div class="rtp-bar-container">
+                        <div class="rtp-bar" style="width: ${game.currentRtp}%"></div>
+                        <div class="rtp-bar-glow"></div>
+                        <div class="fluctuation fluctuation-up" style="display: none;">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="fluctuation fluctuation-down" style="display: none;">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    `;
-}).join('');
+            `;
+        }).join('');
 
-        await new Promise(resolve => setTimeout(resolve, 50));
+        await new Promise(resolve => setTimeout(resolve, 30));
         
         container.style.opacity = '1';
         container.style.transform = 'translateY(0)';
-        container.style.transition = 'all 0.5s ease';
+        container.style.transition = 'all 0.4s ease'; // Faster transition
 
         this.isAnimating = false;
         this.initializeRTPAnimations();
@@ -339,7 +318,7 @@ class GamePlatform {
     initializeRTPAnimations() {
         const games = document.querySelectorAll('.game-item');
         
-        games.forEach((gameItem, index) => {
+        games.forEach((gameItem) => {
             const rtpBar = gameItem.querySelector('.rtp-bar');
             const rtpValue = gameItem.querySelector('.rtp-value');
             const fluctuationUp = gameItem.querySelector('.fluctuation-up');
@@ -349,9 +328,9 @@ class GamePlatform {
             
             let currentRtp = parseFloat(rtpValue.textContent);
             
+            // REDUCED RTP update frequency
             setInterval(() => {
-                const fluctuation = (Math.random() - 0.5) * 0.8;
-                // BATASI RTP: MIN 80% - MAX 98%
+                const fluctuation = (Math.random() - 0.5) * 0.6; // Smaller fluctuations
                 const newRtp = Math.max(80, Math.min(98, currentRtp + fluctuation));
                 const change = newRtp - currentRtp;
                 
@@ -359,29 +338,29 @@ class GamePlatform {
                 
                 this.animateRTPChange(rtpBar, rtpValue, currentRtp, formattedRtp);
                 
-                if (Math.abs(change) > 0.1 && fluctuationUp && fluctuationDown) {
+                if (Math.abs(change) > 0.15 && fluctuationUp && fluctuationDown) { // Higher threshold
                     const fluctuationElement = change > 0 ? fluctuationUp : fluctuationDown;
                     fluctuationElement.style.display = 'block';
                     
                     setTimeout(() => {
                         fluctuationElement.style.display = 'none';
-                    }, 1500);
+                    }, 1200); // Faster hide
                 }
                 
                 currentRtp = formattedRtp;
-            }, 2000 + Math.random() * 2000);
+            }, 3000 + Math.random() * 3000); // ↑ from 2-4s to 3-6s
         });
     }
 
     animateRTPChange(barElement, valueElement, oldValue, newValue) {
-        const duration = 1000;
+        const duration = 800; // Faster animation
         const startTime = performance.now();
         
         const animate = (currentTime) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
             
-            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const easeOutQuart = 1 - Math.pow(1 - progress, 3); // Simpler easing
             const currentRtp = oldValue + (newValue - oldValue) * easeOutQuart;
             
             barElement.style.width = currentRtp + '%';
@@ -449,19 +428,23 @@ class AnimationSystem {
     }
 
     setupScrollAnimations() {
+        let scrollTimeout;
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.header');
-            
-            if (header) {
-                if (scrolled > 100) {
-                    header.style.background = 'rgba(0, 0, 0, 0.95)';
-                    header.style.boxShadow = '0 2px 20px rgba(255, 215, 0, 0.1)';
-                } else {
-                    header.style.background = 'rgba(0, 0, 0, 0.9)';
-                    header.style.boxShadow = 'none';
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('.header');
+                
+                if (header) {
+                    if (scrolled > 100) {
+                        header.style.background = 'rgba(0, 0, 0, 0.95)';
+                        header.style.boxShadow = '0 2px 15px rgba(255, 215, 0, 0.1)';
+                    } else {
+                        header.style.background = 'rgba(0, 0, 0, 0.9)';
+                        header.style.boxShadow = 'none';
+                    }
                 }
-            }
+            }, 10);
         });
     }
 
@@ -495,10 +478,10 @@ class AnimationSystem {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const rotateY = (x - centerX) / 25;
-        const rotateX = (centerY - y) / 25;
+        const rotateY = (x - centerX) / 30; // Reduced effect
+        const rotateX = (centerY - y) / 30;
         
-        element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
     }
 
     magneticEffect(e, element) {
@@ -509,20 +492,24 @@ class AnimationSystem {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const moveX = (x - centerX) / 10;
-        const moveY = (y - centerY) / 10;
+        const moveX = (x - centerX) / 15; // Reduced effect
+        const moveY = (y - centerY) / 15;
         
         element.style.transform = `translate(${moveX}px, ${moveY}px)`;
     }
 }
 
-// Initialize everything
+// OPTIMIZED Initialization with error handling
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        createGoldenStorm();
+        // Delay storm creation for faster initial load
+        setTimeout(() => {
+            createGoldenStorm();
+        }, 1000);
+        
         new TypographyEnhancer();
         window.gamePlatform = new GamePlatform();
-        console.log('🎮 Game Platform initialized successfully!');
+        console.log('🎮 Game Platform optimized successfully!');
     } catch (error) {
         console.error('Failed to initialize GamePlatform:', error);
     }
