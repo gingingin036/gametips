@@ -226,7 +226,7 @@ class GamePlatform {
             { name: 'pussy888', files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) },
             { name: 'megah5', files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) },
             { name: 'jili', files: Array.from({length: 50}, (_, i) => `${i + 1}.png`) },
-            { name: 'pragmatic', files: Array.from({length: 40}, (_, i) => `pm${i + 1}.png`) }
+            { name: 'pragmatic', files: Array.from({length: 40}, (_, i) => `${i + 1}.png`) }
         ];
         
         this.games = [];
@@ -514,3 +514,4 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Failed to initialize GamePlatform:', error);
     }
 });
+
