@@ -6,16 +6,21 @@
     <title>GAME TIPS - RTP Live Real-Time</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PRELOAD CRITICAL ASSETS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="providers/mega888-logo.png" as="image">
+    <link rel="preload" href="providers/918kiss-logo.png" as="image">
+    <link rel="preload" href="providers/pussy888-logo.png" as="image">
+    <link rel="preload" href="providers/megah5-logo.png" as="image">
+    <link rel="preload" href="providers/pragmatic-logo.png" as="image">
+    <link rel="preload" href="providers/jili-logo.png" as="image">
 </head>
 <body>
-    <!-- Background -->
+    <!-- SIMPLIFIED BACKGROUND -->
     <div class="background">
-        <div class="grid-lines"></div>
-        <div class="luxury-floating"></div>
-        <div class="royal-pattern"></div>
-        <div class="luxury-shine"></div>
+        <div class="luxury-glow"></div>
     </div>
 
     <!-- Header -->
@@ -64,41 +69,84 @@
             <div class="providers-grid">
                 <div class="provider-card active" data-provider="mega888">
                     <div class="provider-icon">
-                        <img src="providers/mega888-logo.png" alt="Mega888" class="provider-logo">
+                        <img src="providers/mega888-logo.png" 
+                             alt="Mega888" 
+                             class="provider-logo"
+                             loading="eager"
+                             width="150" 
+                             height="150">
                     </div>
                     <div class="provider-name">Mega888</div>
                 </div>
                 
                 <div class="provider-card" data-provider="918kiss">
                     <div class="provider-icon">
-                        <img src="providers/918kiss-logo.png" alt="918kiss" class="provider-logo">
+                        <img src="providers/918kiss-logo.png" 
+                             alt="918Kiss" 
+                             class="provider-logo"
+                             loading="eager"
+                             width="150" 
+                             height="150">
                     </div>
                     <div class="provider-name">918Kiss</div>
                 </div>
                 
                 <div class="provider-card" data-provider="pussy888">
                     <div class="provider-icon">
-                        <img src="providers/pussy888-logo.png" alt="Pussy888" class="provider-logo">
+                        <img src="providers/pussy888-logo.png" 
+                             alt="Pussy888" 
+                             class="provider-logo"
+                             loading="eager"
+                             width="150" 
+                             height="150">
                     </div>
                     <div class="provider-name">Pussy888</div>
                 </div>
                 
+                <div class="provider-card" data-provider="918kaya">
+                    <div class="provider-icon">
+                        <img src="providers/918kaya-logo.png" 
+                             alt="Pussy888" 
+                             class="provider-logo"
+                             loading="eager"
+                             width="150" 
+                             height="150">
+                    </div>
+                    <div class="provider-name">918Kaya</div>
+                </div>
+
                 <div class="provider-card" data-provider="megah5">
                     <div class="provider-icon">
-                        <img src="providers/megah5-logo.png" alt="Megah5" class="provider-logo">
+                        <img src="providers/megah5-logo.png" 
+                             alt="Mega H5" 
+                             class="provider-logo"
+                             loading="eager"
+                             width="150" 
+                             height="150">
                     </div>
                     <div class="provider-name">Mega H5</div>
                 </div>
-                    <div class="provider-card" data-provider="pragmatic">
+                
+                <div class="provider-card" data-provider="pragmatic">
                     <div class="provider-icon">
-                        <img src="providers/pragmatic-logo.webp" alt="Pragmatic" class="provider-logo">
+                        <img src="providers/pragmatic-logo.png" 
+                             alt="Pragmatic Play" 
+                             class="provider-logo"
+                             loading="eager"
+                             width="150" 
+                             height="150">
                     </div>
                     <div class="provider-name">Pragmatic play</div>
                 </div>
 
                 <div class="provider-card" data-provider="jili">
                     <div class="provider-icon">
-                        <img src="providers/jili-logo.png" alt="JILI" class="provider-logo">
+                        <img src="providers/jili-logo.png" 
+                             alt="JILI" 
+                             class="provider-logo"
+                             loading="eager"
+                             width="150" 
+                             height="150">
                     </div>
                     <div class="provider-name">JILI</div>
                 </div>
@@ -113,8 +161,46 @@
         </section>
     </main>
 
-    <script src="js/main.js"></script>
+    <!-- DEFER NON-CRITICAL JS -->
+    <script src="js/main.js" defer></script>
+    
+    <!-- INLINE CRITICAL JS FOR INSTANT LOAD -->
+    <script>
+        // Critical functionality untuk load pertama
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update time immediately
+            function updateTime() {
+                const now = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit', 
+                    second: '2-digit',
+                    timeZone: 'Asia/Kuala_Lumpur'
+                };
+                
+                const timeElement = document.getElementById('currentTime');
+                if (timeElement) {
+                    timeElement.textContent = now.toLocaleDateString('ms-MY', options);
+                }
+            }
+            
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            // Simple provider switch
+            document.querySelectorAll('.provider-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.provider-card').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
-
 </html>
-
