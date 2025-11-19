@@ -1,185 +1,3 @@
-// OPTIMIZED Luxury Golden Particle Storm - LIGHTWEIGHT
-function createGoldenStorm() {
-    const stormContainer = document.createElement('div');
-    stormContainer.className = 'golden-storm';
-    document.body.appendChild(stormContainer);
-
-    // REDUCED particle counts - dari 45 jadi 12 total
-    function createGoldenParticle() {
-        const particle = document.createElement('div');
-        particle.className = 'golden-particle';
-        
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-        
-        particle.style.left = `${startX}%`;
-        particle.style.top = `${startY}%`;
-        particle.style.animationDelay = `${Math.random() * 8}s`;
-        
-        stormContainer.appendChild(particle);
-        
-        // Auto cleanup - lebih cepat
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.remove();
-            }
-        }, 8000);
-    }
-    
-    function createLuxuryOrb() {
-        const orb = document.createElement('div');
-        orb.className = 'luxury-orb';
-        
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-        
-        orb.style.left = `${startX}%`;
-        orb.style.top = `${startY}%`;
-        orb.style.animationDelay = `${Math.random() * 12}s`;
-        
-        stormContainer.appendChild(orb);
-        
-        setTimeout(() => {
-            if (orb.parentNode) {
-                orb.remove();
-            }
-        }, 12000);
-    }
-
-    function createGoldenSparkle() {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'golden-sparkle';
-        
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-        
-        sparkle.style.left = `${startX}%`;
-        sparkle.style.top = `${startY}%`;
-        sparkle.style.animationDelay = `${Math.random() * 4}s`;
-        
-        stormContainer.appendChild(sparkle);
-        
-        setTimeout(() => {
-            if (sparkle.parentNode) {
-                sparkle.remove();
-            }
-        }, 4000);
-    }
-
-    // REDUCED initial particle count - DRASTIS!
-    function initializeStorm() {
-        for (let i = 0; i < 4; i++) {
-            setTimeout(() => createGoldenParticle(), i * 300);
-        }
-
-        for (let i = 0; i < 2; i++) {
-            setTimeout(() => createLuxuryOrb(), i * 600);
-        }
-
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => createGoldenSparkle(), i * 400);
-        }
-    }
-
-    // REDUCED maintenance frequency
-    function maintainStorm() {
-        setInterval(() => {
-            if (Math.random() < 0.3) createGoldenParticle();
-            if (Math.random() < 0.15) createLuxuryOrb();
-            if (Math.random() < 0.2) createGoldenSparkle();
-        }, 3000);
-    }
-
-    // OPTIMIZED mousemove dengan throttling lebih ketat
-    let lastMouseMove = 0;
-    document.addEventListener('mousemove', (e) => {
-        const now = Date.now();
-        if (now - lastMouseMove < 800) return;
-        
-        lastMouseMove = now;
-        
-        if (Math.random() < 0.03) {
-            const interactiveParticle = document.createElement('div');
-            interactiveParticle.className = 'golden-sparkle';
-            interactiveParticle.style.left = `${e.clientX}px`;
-            interactiveParticle.style.top = `${e.clientY}px`;
-            interactiveParticle.style.animation = 'sparkleTwinkle 1s ease-out forwards';
-            
-            stormContainer.appendChild(interactiveParticle);
-            
-            setTimeout(() => {
-                if (interactiveParticle.parentNode) {
-                    interactiveParticle.remove();
-                }
-            }, 1000);
-        }
-    });
-
-    initializeStorm();
-    maintainStorm();
-}
-
-class TypographyEnhancer {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        this.addScrollEffects();
-        this.enhanceHoverEffects();
-    }
-
-    addScrollEffects() {
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (scrollTimeout) {
-                cancelAnimationFrame(scrollTimeout);
-            }
-            
-            scrollTimeout = requestAnimationFrame(() => {
-                const scrolled = window.pageYOffset;
-                const heroBanner = document.querySelector('.hero-banner');
-                if (heroBanner) {
-                    heroBanner.style.transform = `translateY(${scrolled * 0.1}px)`;
-                }
-            });
-        });
-    }
-
-    enhanceHoverEffects() {
-        const providerCards = document.querySelectorAll('.provider-card');
-        providerCards.forEach(card => {
-            card.addEventListener('mouseenter', (e) => {
-                this.createSparkleEffect(e, card);
-            });
-        });
-
-        const gameItems = document.querySelectorAll('.game-item');
-        gameItems.forEach(item => {
-            item.addEventListener('mouseenter', (e) => {
-                this.createSparkleEffect(e, item);
-            });
-        });
-    }
-
-    createSparkleEffect(event, element) {
-        for (let i = 0; i < 1; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'golden-sparkle';
-            sparkle.style.left = `${Math.random() * 100}%`;
-            sparkle.style.top = `${Math.random() * 100}%`;
-            sparkle.style.animationDelay = `${Math.random() * 1}s`;
-            element.appendChild(sparkle);
-            
-            setTimeout(() => {
-                if (sparkle.parentNode) {
-                    sparkle.remove();
-                }
-            }, 1000);
-        }
-    }
-}
-
 class GamePlatform {
     constructor() {
         this.games = [];
@@ -188,6 +6,7 @@ class GamePlatform {
         this.isAnimating = false;
         this.rotationInterval = 3 * 60 * 60 * 1000; // 3 JAM
         this.currentSeed = 0;
+        this.failedImages = new Set();
         this.init();
     }
 
@@ -209,7 +28,7 @@ class GamePlatform {
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit', 
-            second: '2-digit', // TETAP ADA DETIKNYA
+            second: '2-digit',
             timeZone: 'Asia/Kuala_Lumpur'
         };
         
@@ -250,33 +69,33 @@ class GamePlatform {
             },
             { 
                 name: '918kiss', 
-                folder: 'mega888', // PAKAI FOLDER YANG SAMA
+                folder: 'mega888',
                 files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) 
             },
             { 
                 name: '918kaya', 
-                folder: 'mega888', // PAKAI FOLDER YANG SAMA
+                folder: 'mega888',
                 files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) 
             },
             { 
                 name: 'pussy888', 
-                folder: 'mega888', // PAKAI FOLDER YANG SAMA
+                folder: 'mega888',
                 files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) 
             },
             { 
                 name: 'megah5', 
-                folder: 'mega888', // PAKAI FOLDER YANG SAMA
+                folder: 'mega888',
                 files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) 
             },
             { 
                 name: 'jili', 
                 folder: 'jili',
-                files: Array.from({length: 50}, (_, i) => `${i + 1}.png`) 
+                files: Array.from({length: 59}, (_, i) => `${i + 1}.png`) 
             },
             { 
                 name: 'pragmatic', 
                 folder: 'pragmatic',
-                files: Array.from({length: 40}, (_, i) => `${i + 1}.png`) 
+                files: Array.from({length: 55}, (_, i) => `${i + 1}.png`) 
             }
         ];
         
@@ -295,15 +114,36 @@ class GamePlatform {
                 this.games.push({
                     id: `${provider.name}-${index}-${this.currentSeed}`,
                     provider: provider.name,
-                    folder: provider.folder, // SIMPAN FOLDER
-                    image: fileName,
+                    image: `https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_auto,w_300/${provider.folder}/${fileName}`,
+                    // OPTIMIZED: q_auto untuk quality otomatis
+                    placeholder: `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWExYTFhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2NjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPkxvYWRpbmcuLi48L3RleHQ+PC9zdmc+`,
                     rtp: parseFloat(baseRtp.toFixed(1)),
                     currentRtp: parseFloat(baseRtp.toFixed(1))
                 });
             });
         });
 
+        this.preloadFirstBatch();
         this.renderGames();
+    }
+
+    preloadFirstBatch() {
+        // Preload 6 gambar pertama dari provider aktif - OPTIMIZED
+        const firstGames = this.games
+            .filter(game => game.provider === this.currentProvider)
+            .slice(0, 6);
+        
+        firstGames.forEach(game => {
+            const img = new Image();
+            img.src = game.image;
+            img.loading = 'eager';
+            img.decoding = 'async';
+            
+            // Fallback jika gambar gagal load
+            img.onerror = () => {
+                this.trackFailedImage(game.image);
+            };
+        });
     }
 
     async renderGames() {
@@ -321,33 +161,32 @@ class GamePlatform {
         
         const filteredGames = this.games.filter(game => game.provider === this.currentProvider);
         
-        container.innerHTML = filteredGames.map(game => {
-            // GUNAKAN FOLDER YANG TELAH DISIMPAN
+        container.innerHTML = filteredGames.map((game, index) => {
+            const shouldLoad = !this.failedImages.has(game.image);
+            const loadingStrategy = index < 6 ? 'eager' : 'lazy'; // OPTIMIZED: 6 pertama eager, sisanya lazy
+            
             return `
-            <div class="game-item" data-game="${game.id}">
-                <img src="${game.folder}/${game.image}" 
-                     alt="${game.image.split('.')[0]}" 
-                     class="game-image"
-                     loading="lazy"
-                     width="300"
-                     height="200"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <div class="game-placeholder" style="display: none;">
-                    <i class="fas fa-gamepad"></i>
-                    <span>${game.image.split('.')[0]}</span>
-                </div>
+                <div class="game-item" data-game="${game.id}">
+                    <img src="${shouldLoad ? game.image : game.placeholder}" 
+                         alt="${game.provider} game ${index + 1}" 
+                         class="game-image"
+                         loading="${loadingStrategy}"
+                         decoding="async"
+                         width="300"
+                         height="200"
+                         onerror="this.src='${game.placeholder}'; window.gamePlatform?.trackFailedImage('${game.image}')">
                 
-                <div class="rtp-indicator">
-                    <div class="rtp-header">
-                        <div class="rtp-label">RTP LIVE</div>
-                        <div class="rtp-value">${game.currentRtp}%</div>
-                    </div>
-                    <div class="rtp-bar-container">
-                        <div class="rtp-bar" style="width: ${game.currentRtp}%"></div>
-                        <div class="rtp-bar-glow"></div>
+                    <div class="rtp-indicator">
+                        <div class="rtp-header">
+                            <div class="rtp-label">RTP LIVE</div>
+                            <div class="rtp-value">${game.currentRtp}%</div>
+                        </div>
+                        <div class="rtp-bar-container">
+                            <div class="rtp-bar" style="width: ${game.currentRtp}%"></div>
+                            <div class="rtp-bar-glow"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
             `;
         }).join('');
 
@@ -407,15 +246,17 @@ class GamePlatform {
     }
 
     setupEventListeners() {
-        document.querySelectorAll('.provider-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (this.isAnimating) return;
-                
+        // Event delegation untuk provider cards
+        document.addEventListener('click', (e) => {
+            const providerCard = e.target.closest('.provider-card');
+            if (providerCard && !this.isAnimating) {
                 document.querySelectorAll('.provider-card').forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-                this.currentProvider = card.dataset.provider;
+                providerCard.classList.add('active');
+                this.currentProvider = providerCard.dataset.provider;
+                
+                this.preloadFirstBatch();
                 this.renderGames();
-            });
+            }
         });
 
         document.addEventListener('click', (e) => {
@@ -430,13 +271,13 @@ class GamePlatform {
         
         if (loginBtn) {
             loginBtn.addEventListener('click', () => {
-                alert('Redirecting to login...');
+                this.showNotification('Redirecting to login...');
             });
         }
         
         if (registerBtn) {
             registerBtn.addEventListener('click', () => {
-                alert('Redirecting to registration...');
+                this.showNotification('Redirecting to registration...');
             });
         }
     }
@@ -444,107 +285,508 @@ class GamePlatform {
     handleGameClick(gameId) {
         const game = this.games.find(g => g.id === gameId);
         if (game) {
-            alert(`Launching: ${game.image.split('.')[0]}`);
+            this.showNotification(`Launching: ${game.provider} Game`);
         }
+    }
+
+    trackFailedImage(imageUrl) {
+        this.failedImages.add(imageUrl);
+        console.warn(`Image failed to load: ${imageUrl}`);
+    }
+
+    showNotification(message) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'game-notification';
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas fa-gamepad"></i>
+                <span>${message}</span>
+            </div>
+        `;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
     }
 }
 
-class AnimationSystem {
+// Enhanced Image Optimization
+class ImageOptimizer {
     constructor() {
+        this.observer = null;
         this.init();
     }
 
     init() {
-        this.setupScrollAnimations();
-        this.setupHoverEffects();
+        this.setupIntersectionObserver();
     }
 
-    setupScrollAnimations() {
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (scrollTimeout) {
-                cancelAnimationFrame(scrollTimeout);
-            }
-            
-            scrollTimeout = requestAnimationFrame(() => {
-                const scrolled = window.pageYOffset;
-                const header = document.querySelector('.header');
-                
-                if (header) {
-                    if (scrolled > 100) {
-                        header.style.background = 'rgba(0, 0, 0, 0.95)';
-                        header.style.boxShadow = '0 2px 15px rgba(255, 215, 0, 0.1)';
-                    } else {
-                        header.style.background = 'rgba(17, 17, 17, 0.95)';
-                        header.style.boxShadow = '0 4px 25px rgba(0, 0, 0, 0.5)';
+    setupIntersectionObserver() {
+        // Lazy load images when they enter viewport
+        if ('IntersectionObserver' in window) {
+            this.observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                        }
+                        this.observer.unobserve(img);
                     }
-                }
+                });
+            }, {
+                rootMargin: '50px 0px',
+                threshold: 0.1
             });
-        });
+        }
     }
 
-    setupHoverEffects() {
-        document.querySelectorAll('.game-item').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                this.tiltElement(e, card);
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-            });
-        });
-
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                this.magneticEffect(e, btn);
-            });
-            
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0, 0)';
-            });
-        });
-    }
-
-    tiltElement(e, element) {
-        const rect = element.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateY = (x - centerX) / 40;
-        const rotateX = (centerY - y) / 40;
-        
-        element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-    }
-
-    magneticEffect(e, element) {
-        const rect = element.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const moveX = (x - centerX) / 15;
-        const moveY = (y - centerY) / 15;
-        
-        element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    observeImage(img) {
+        if (this.observer && img.dataset.src) {
+            this.observer.observe(img);
+        }
     }
 }
 
-// OPTIMIZED Initialization
+// Text Logo Animation Class - FIXED VERSION
+class TextLogoAnimator {
+    constructor() {
+        this.n1Element = null;
+        this.gangElement = null;
+        this.logoSection = null;
+        this.isAnimating = false;
+        this.init();
+    }
+
+    init() {
+        // Wait for DOM to be ready
+        setTimeout(() => {
+            this.n1Element = document.querySelector('.n1-text');
+            this.gangElement = document.querySelector('.gang-text');
+            this.logoSection = document.querySelector('.logo-section');
+            
+            if (this.n1Element && this.gangElement) {
+                this.startAnimations();
+                this.addHoverEffects();
+            }
+        }, 1000);
+    }
+
+    startAnimations() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        
+        // 1. Pulsating Glow Effect (FIXED - tidak override gradient)
+        this.createPulsatingGlow();
+        
+        // 2. Subtle Float Animation 
+        this.createFloatEffect();
+        
+        // 3. Random Sparkle Effect
+        this.createSparkleEffect();
+    }
+
+    createPulsatingGlow() {
+        setInterval(() => {
+            if (!this.n1Element || !this.gangElement) return;
+            
+            const intensity = 15 + Math.random() * 10;
+            // Hanya ubah text-shadow, biarkan gradient CSS tetap
+            this.n1Element.style.textShadow = `0 0 ${intensity}px rgba(255, 215, 0, 0.7)`;
+            this.gangElement.style.textShadow = `0 0 ${intensity}px rgba(255, 165, 0, 0.6)`;
+        }, 2000);
+    }
+
+    createFloatEffect() {
+        const animate = () => {
+            if (!this.n1Element || !this.gangElement) return;
+            
+            const floatOffset = Math.sin(Date.now() / 1200) * 1.5; // Lebih halus
+            this.n1Element.style.transform = `translateY(${floatOffset}px)`;
+            this.gangElement.style.transform = `translateY(${floatOffset * 0.5}px)`;
+            
+            requestAnimationFrame(animate);
+        };
+        animate();
+    }
+
+    createSparkleEffect() {
+        setInterval(() => {
+            if (!this.logoSection || Math.random() < 0.2) return;
+            
+            this.createSparkleParticle();
+        }, 1200);
+    }
+
+    createSparkleParticle() {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'text-sparkle';
+        sparkle.innerHTML = '✨';
+        
+        const logoRect = this.logoSection.getBoundingClientRect();
+        const x = 10 + Math.random() * (logoRect.width - 20);
+        const y = 10 + Math.random() * (logoRect.height - 20);
+        
+        sparkle.style.cssText = `
+            position: absolute;
+            left: ${x}px;
+            top: ${y}px;
+            font-size: ${12 + Math.random() * 6}px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            animation: sparkleFloat 1.2s ease-out forwards;
+        `;
+        
+        this.logoSection.style.position = 'relative';
+        this.logoSection.appendChild(sparkle);
+        
+        // Remove sparkle after animation
+        setTimeout(() => {
+            if (sparkle.parentNode) {
+                sparkle.remove();
+            }
+        }, 1200);
+    }
+
+    addHoverEffects() {
+        if (!this.logoSection) return;
+        
+        this.logoSection.addEventListener('mouseenter', () => {
+            // Scale up on hover
+            this.n1Element.style.transform = 'scale(1.08) translateY(0)';
+            this.gangElement.style.transform = 'scale(1.08) translateY(0)';
+            
+            // Intensify glow
+            this.n1Element.style.textShadow = '0 0 25px rgba(255, 215, 0, 0.9), 0 0 40px rgba(255, 215, 0, 0.4)';
+            this.gangElement.style.textShadow = '0 0 20px rgba(255, 165, 0, 0.8), 0 0 35px rgba(255, 165, 0, 0.3)';
+            
+            // Create burst effect
+            this.createHoverBurst();
+        });
+
+        this.logoSection.addEventListener('mouseleave', () => {
+            // Return to normal float animation
+            setTimeout(() => {
+                this.createFloatEffect();
+            }, 100);
+        });
+    }
+
+    createHoverBurst() {
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                if (this.logoSection) {
+                    this.createSparkleParticle();
+                }
+            }, i * 150);
+        }
+    }
+}
+
+// Marquee Logo Animator Class - PASTIKAN DI LUAR TextLogoAnimator
+// Marquee Logo Animator Class - TAMBAHKAN INI
+class MarqueeAnimator {
+    constructor() {
+        this.marqueeContainer = null;
+        this.logoSlides = [];
+        this.init();
+    }
+
+    init() {
+        setTimeout(() => {
+            this.marqueeContainer = document.querySelector('.main-header .marquee-container');
+            if (this.marqueeContainer) {
+                this.logoSlides = this.marqueeContainer.querySelectorAll('.logo-slide');
+                this.startMarqueeAnimations();
+            }
+        }, 1500);
+    }
+
+    startMarqueeAnimations() {
+        // 1. Sequential Entrance Animation
+        this.animateEntrance();
+        
+        // 2. Continuous Glow Pulse
+        this.startGlowPulse();
+        
+        // 3. Random Bounce Effects
+        this.startRandomBounce();
+        
+        // 4. Hover Enhancement
+        this.enhanceHoverEffects();
+    }
+
+    animateEntrance() {
+        this.logoSlides.forEach((slide, index) => {
+            // Reset untuk animation
+            slide.style.opacity = '0';
+            slide.style.transform = 'translateY(20px) scale(0.8)';
+            
+            // Staggered entrance
+            setTimeout(() => {
+                slide.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                slide.style.opacity = '1';
+                slide.style.transform = 'translateY(0) scale(1)';
+            }, index * 200);
+        });
+    }
+
+    startGlowPulse() {
+        setInterval(() => {
+            this.logoSlides.forEach((slide, index) => {
+                const delay = index * 300;
+                setTimeout(() => {
+                    if (slide.isHovered) return; // Skip if hovered
+                    
+                    slide.style.boxShadow = `
+                        0 0 20px rgba(100, 100, 255, 0.4),
+                        0 0 40px rgba(255, 215, 0, 0.2)
+                    `;
+                    
+                    setTimeout(() => {
+                        if (!slide.isHovered) {
+                            slide.style.boxShadow = `
+                                0 0 10px rgba(100, 100, 255, 0.2),
+                                0 0 20px rgba(255, 215, 0, 0.1)
+                            `;
+                        }
+                    }, 600);
+                }, delay);
+            });
+        }, 3000);
+    }
+
+    startRandomBounce() {
+        setInterval(() => {
+            this.logoSlides.forEach(slide => {
+                if (Math.random() < 0.1 && !slide.isHovered) {
+                    this.animateBounce(slide);
+                }
+            });
+        }, 2000);
+    }
+
+    animateBounce(slide) {
+        slide.style.transform = 'translateY(-8px) scale(1.05)';
+        slide.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        
+        setTimeout(() => {
+            if (!slide.isHovered) {
+                slide.style.transform = 'translateY(0) scale(1)';
+            }
+        }, 300);
+    }
+
+    enhanceHoverEffects() {
+        this.logoSlides.forEach(slide => {
+            // Track hover state
+            slide.isHovered = false;
+            
+            slide.addEventListener('mouseenter', () => {
+                slide.isHovered = true;
+                
+                // Enhanced hover effects
+                slide.style.transform = 'translateY(-10px) scale(1.1)';
+                slide.style.boxShadow = `
+                    0 15px 35px rgba(100, 100, 255, 0.5),
+                    0 0 50px rgba(255, 215, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2)
+                `;
+                slide.style.borderColor = 'rgba(255, 215, 0, 0.8)';
+                
+                // Add particle effect on hover
+                this.createHoverParticles(slide);
+            });
+            
+            slide.addEventListener('mouseleave', () => {
+                slide.isHovered = false;
+                
+                slide.style.transform = 'translateY(0) scale(1)';
+                slide.style.boxShadow = `
+                    0 0 10px rgba(100, 100, 255, 0.2),
+                    0 0 20px rgba(255, 215, 0, 0.1)
+                `;
+                slide.style.borderColor = 'rgba(100, 100, 255, 0.2)';
+            });
+        });
+    }
+
+    createHoverParticles(slide) {
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                const particle = document.createElement('div');
+                particle.className = 'marquee-particle';
+                particle.innerHTML = '⭐';
+                
+                const rect = slide.getBoundingClientRect();
+                const x = Math.random() * rect.width;
+                
+                particle.style.cssText = `
+                    position: absolute;
+                    left: ${x}px;
+                    top: ${rect.height}px;
+                    font-size: ${8 + Math.random() * 6}px;
+                    opacity: 0;
+                    pointer-events: none;
+                    z-index: 5;
+                    animation: particleFloat 1s ease-out forwards;
+                `;
+                
+                slide.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                    }
+                }, 1000);
+            }, i * 200);
+        }
+    }
+}
+
+// Add CSS for marquee animations - TAMBAHKAN INI
+const marqueeAnimationStyles = `
+@keyframes particleFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-15px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0);
+    }
+}
+
+.marquee-particle {
+    animation: particleFloat 1s ease-out forwards;
+}
+
+/* Smooth marquee animation */
+.marquee-container {
+    animation: marqueeScroll 25s linear infinite;
+}
+
+@keyframes marqueeScroll {
+    0% { 
+        transform: translateX(0); 
+    }
+    100% { 
+        transform: translateX(-50%); 
+    }
+}
+
+/* Pause animation on hover */
+.logo-marquee:hover .marquee-container {
+    animation-play-state: paused;
+}
+`;
+
+// Inject marquee styles
+const marqueeStyleSheet = document.createElement('style');
+marqueeStyleSheet.textContent = marqueeAnimationStyles;
+document.head.appendChild(marqueeStyleSheet);
+
+// Add CSS for sparkle animation - TAMBAHKAN INI
+const sparkleStyles = `
+@keyframes sparkleFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-40px) scale(0);
+    }
+}
+
+.text-sparkle {
+    animation: sparkleFloat 1.5s ease-out forwards;
+}
+`;
+
+// Inject styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = sparkleStyles;
+document.head.appendChild(styleSheet);
+
+// OPTIMIZED Initialization dengan Image Optimizer
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        setTimeout(() => {
-            createGoldenStorm();
-        }, 2000);
+        // Initialize image optimizer
+        window.imageOptimizer = new ImageOptimizer();
         
-        new TypographyEnhancer();
+        // Initialize game platform
         window.gamePlatform = new GamePlatform();
-        
+
+        // Initialize text logo animator
+        window.textLogoAnimator = new TextLogoAnimator();
+
+        // Enhanced marquee controls
+        const marquees = document.querySelectorAll('.marquee-container');
+        marquees.forEach(marquee => {
+            let isPaused = false;
+
+            marquee.addEventListener('mouseenter', () => {
+                isPaused = true;
+                marquee.style.animationPlayState = 'paused';
+            });
+
+            marquee.addEventListener('mouseleave', () => {
+                isPaused = false;
+                marquee.style.animationPlayState = 'running';
+            });
+
+            // Pause marquee when window is not visible
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    marquee.style.animationPlayState = 'paused';
+                } else if (!isPaused) {
+                    marquee.style.animationPlayState = 'running';
+                }
+            });
+        });
+
     } catch (error) {
         console.error('Initialization error:', error);
     }
 });
+
+// Performance monitoring
+if ('performance' in window) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const perfData = performance.timing;
+            const loadTime = perfData.loadEventEnd - perfData.navigationStart;
+            console.log(`Page loaded in ${loadTime}ms`);
+            
+            // Log image performance
+            const images = performance.getEntriesByType('resource')
+                .filter(entry => entry.name.includes('cloudinary'));
+            console.log(`${images.length} Cloudinary images loaded`);
+        }, 0);
+    });
+}
