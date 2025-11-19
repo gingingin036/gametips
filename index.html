@@ -2,164 +2,177 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#FFD700">
+    <meta name="description" content="Live RTP Game Tips - Real-time game statistics and insights">
     <title>GAME TIPS - RTP Live Real-Time</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     
     <!-- PRELOAD CRITICAL ASSETS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="providers/mega888-logo.png" as="image">
-    <link rel="preload" href="providers/918kiss-logo.png" as="image">
-    <link rel="preload" href="providers/pussy888-logo.png" as="image">
-    <link rel="preload" href="providers/megah5-logo.png" as="image">
-    <link rel="preload" href="providers/pragmatic-logo.png" as="image">
-    <link rel="preload" href="providers/jili-logo.png" as="image">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <link rel="preload" href="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/mega888-logo.png" as="image">
+    <link rel="preload" href="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/918kiss-logo.png" as="image">
+    <link rel="preload" href="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/pussy888-logo.png" as="image">
+    <link rel="preload" href="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/megah5-logo.png" as="image">
+    <link rel="preload" href="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/pragmatic-logo.png" as="image">
+    <link rel="preload" href="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/jili-logo.png" as="image">
 </head>
 <body>
-    <!-- SIMPLIFIED BACKGROUND -->
+    <!-- ENHANCED BACKGROUND -->
     <div class="background">
         <div class="luxury-glow"></div>
+        <div class="particles-container">
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+            <div class="particle particle-4"></div>
+            <div class="particle particle-5"></div>
+            <div class="particle particle-6"></div>
+        </div>
+        <div class="grid-overlay"></div>
     </div>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <span class="logo-text">TODAY<span>GAMETIPS</span></span>
-            </div>
-            
-            <div class="header-actions">
-                <button class="btn login-btn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    N1GANG
-                </button>
-                <button class="btn register-btn">
-                    <i class="fas fa-user-plus"></i>
-                    DAFTAR
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <main class="main-container">
-        <!-- Hero Banner -->
-        <section class="hero-banner">
-            <div class="banner-content">
-                <div class="banner-text">
-                    <h1 class="banner-title">
-                        <span class="title-main">LIVE <br>GAME TIPS</span>
-                    </h1>
-                    <div class="live-indicator">
-                        <div class="live-pulse"></div>
-                        <span class="live-text">LIVE UPDATE</span>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="text-logo">
+                        <span class="n1-text">N1GANG</span>
+                        <span class="gang-text">GAMES TIPS</span>
                     </div>
-                    <p class="banner-time" id="currentTime"></p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Provider Navigation -->
-        <section class="providers-section">
-            <div class="providers-grid">
-                <div class="provider-card active" data-provider="mega888">
-                    <div class="provider-icon">
-                        <img src="providers/mega888-logo.png" 
-                             alt="Mega888" 
-                             class="provider-logo"
-                             loading="eager"
-                             width="150" 
-                             height="150">
+                <div class="logo-marquee">
+                    <div class="marquee-container">
+                        <div class="logo-slide">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_70,w_120,h_60,c_fit/v1763457391/logo/ub.png" 
+                                 alt="UB Logo" 
+                                 loading="lazy">
+                        </div>
+                        <div class="logo-slide">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_70,w_120,h_60,c_fit/v1763457387/logo/kg.png" 
+                                 alt="KG Logo" 
+                                 loading="lazy">
+                        </div>
+                        <div class="logo-slide">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_70,w_120,h_60,c_fit/v1763457386/logo/ab.png" 
+                                 alt="AB Logo" 
+                                 loading="lazy">
+                        </div>
+                        <div class="logo-slide">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_70,w_120,h_60,c_fit/v1763458290/logo/lv.png" 
+                                 alt="LV Logo" 
+                                 loading="lazy">
+                        </div>
+                        <div class="logo-slide">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_70,w_120,h_60,c_fit/v1763457386/logo/ep.png" 
+                                 alt="EP Logo" 
+                                 loading="lazy">
+                        </div>
+                        <div class="logo-slide">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_70,w_120,h_60,c_fit/v1763457391/logo/ub.png" 
+                                 alt="UB Logo" 
+                                 loading="lazy">
+                        </div>
                     </div>
-                    <div class="provider-name">Mega888</div>
-                </div>
-                
-                <div class="provider-card" data-provider="918kiss">
-                    <div class="provider-icon">
-                        <img src="providers/918kiss-logo.png" 
-                             alt="918Kiss" 
-                             class="provider-logo"
-                             loading="eager"
-                             width="150" 
-                             height="150">
-                    </div>
-                    <div class="provider-name">918Kiss</div>
-                </div>
-                
-                <div class="provider-card" data-provider="pussy888">
-                    <div class="provider-icon">
-                        <img src="providers/pussy888-logo.png" 
-                             alt="Pussy888" 
-                             class="provider-logo"
-                             loading="eager"
-                             width="150" 
-                             height="150">
-                    </div>
-                    <div class="provider-name">Pussy888</div>
-                </div>
-                
-                <div class="provider-card" data-provider="918kaya">
-                    <div class="provider-icon">
-                        <img src="providers/918kaya-logo.png" 
-                             alt="Pussy888" 
-                             class="provider-logo"
-                             loading="eager"
-                             width="150" 
-                             height="150">
-                    </div>
-                    <div class="provider-name">918Kaya</div>
-                </div>
-
-                <div class="provider-card" data-provider="megah5">
-                    <div class="provider-icon">
-                        <img src="providers/megah5-logo.png" 
-                             alt="Mega H5" 
-                             class="provider-logo"
-                             loading="eager"
-                             width="150" 
-                             height="150">
-                    </div>
-                    <div class="provider-name">Mega H5</div>
-                </div>
-                
-                <div class="provider-card" data-provider="pragmatic">
-                    <div class="provider-icon">
-                        <img src="providers/pragmatic-logo.png" 
-                             alt="Pragmatic Play" 
-                             class="provider-logo"
-                             loading="eager"
-                             width="150" 
-                             height="150">
-                    </div>
-                    <div class="provider-name">Pragmatic play</div>
-                </div>
-
-                <div class="provider-card" data-provider="jili">
-                    <div class="provider-icon">
-                        <img src="providers/jili-logo.png" 
-                             alt="JILI" 
-                             class="provider-logo"
-                             loading="eager"
-                             width="150" 
-                             height="150">
-                    </div>
-                    <div class="provider-name">JILI</div>
                 </div>
             </div>
-        </section>
+        </header>
 
-        <!-- Games Showcase -->
-        <section class="games-showcase">
-            <div class="games-grid" id="gamesContainer">
-                <!-- Games will be dynamically loaded here -->
-            </div>
-        </section>
-    </main>
+        <!-- Main Container -->
+        <main class="main-container">
+            <!-- Hero Banner -->
+            <section class="hero-banner">
+                <div class="banner-content">
+                    <div class="banner-text">
+                        <h1 class="banner-title">
+                            <span class="title-main">LIVE <br>GAME TIPS</span>
+                        </h1>
+                        <div class="live-indicator">
+                            <div class="live-pulse"></div>
+                            <span class="live-text">LIVE UPDATE</span>
+                        </div>
+                        <p class="banner-time" id="currentTime"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Provider Navigation - 1 BARIS 4 CARD -->
+            <section class="providers-section">
+                <div class="section-header">
+                    <h2 class="section-title">Game Providers</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="providers-grid">
+                    <div class="provider-card active" data-provider="mega888">
+                        <div class="provider-icon">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/mega888-logo.png" 
+                                alt="Mega888" 
+                                class="provider-logo"
+                                loading="eager"
+                                fetchpriority="high"
+                                width="200" 
+                                height="200"
+                                decoding="async">
+                        </div>
+                        <div class="provider-name">Mega888</div>
+                    </div>
+                    
+                    <div class="provider-card" data-provider="918kiss">
+                        <div class="provider-icon">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/918kiss-logo.png" 
+                                alt="918Kiss" 
+                                class="provider-logo"
+                                loading="eager"
+                                width="200" 
+                                height="200"
+                                decoding="async">
+                        </div>
+                        <div class="provider-name">918Kiss</div>
+                    </div>
+                    
+                    <div class="provider-card" data-provider="pussy888">
+                        <div class="provider-icon">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/pussy888-logo.png" 
+                                alt="Pussy888" 
+                                class="provider-logo"
+                                loading="eager"
+                                width="200" 
+                                height="200"
+                                decoding="async">
+                        </div>
+                        <div class="provider-name">Pussy888</div>
+                    </div>
+                    
+                    <div class="provider-card" data-provider="918kaya">
+                        <div class="provider-icon">
+                            <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/918kaya-logo.png" 
+                                alt="918Kaya" 
+                                class="provider-logo"
+                                loading="eager"
+                                width="200" 
+                                height="200"
+                                decoding="async">
+                        </div>
+                        <div class="provider-name">918Kaya</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Games Showcase - 3 GAME PER BARIS, 6 BARIS -->
+            <section class="games-showcase">
+                <div class="section-header">
+                    <h2 class="section-title">Live Games</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="games-grid" id="gamesContainer">
+                    <!-- Games will be dynamically loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
 
     <!-- DEFER NON-CRITICAL JS -->
     <script src="js/main.js" defer></script>
@@ -191,15 +204,29 @@
             updateTime();
             setInterval(updateTime, 1000);
             
-            // Simple provider switch
-            document.querySelectorAll('.provider-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    document.querySelectorAll('.provider-card').forEach(c => {
-                        c.classList.remove('active');
-                    });
-                    this.classList.add('active');
+            // Marquee animation control
+            const marquee = document.querySelector('.main-header .marquee-container');
+            if (marquee) {
+                marquee.addEventListener('mouseenter', () => {
+                    marquee.style.animationPlayState = 'paused';
                 });
-            });
+
+                marquee.addEventListener('mouseleave', () => {
+                    marquee.style.animationPlayState = 'running';
+                });
+            }
+
+            // Force layout stability on zoom
+            function maintainLayoutStability() {
+                document.body.style.zoom = '1';
+                const container = document.querySelector('.container');
+                if (container) {
+                    container.style.transform = 'scale(1)';
+                }
+            }
+
+            window.addEventListener('resize', maintainLayoutStability);
+            setInterval(maintainLayoutStability, 1000);
         });
     </script>
 </body>
