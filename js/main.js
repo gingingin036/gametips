@@ -1,3 +1,15 @@
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded - initializing GamePlatform');
+    
+    try {
+        // Initialize game platform
+        window.gamePlatform = new GamePlatform();
+        console.log('GamePlatform initialized successfully');
+        
+    } catch (error) {
+        console.error('Error initializing GamePlatform:', error);
+    }
+});
 class GamePlatform {
     constructor() {
         this.games = [];
