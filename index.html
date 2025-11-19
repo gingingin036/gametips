@@ -146,43 +146,43 @@
                         <div class="provider-name">Pussy888</div>
                     </div>
 
-                    <div class="provider-card" data-provider="Mega H5">
+                    <div class="provider-card" data-provider="megah5">
                         <div class="provider-icon">
                             <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/megah5-logo.png"
-                                alt="Mega H5" 
+                                alt="megah5" 
                                 class="provider-logo"
                                 loading="lazy"
                                 width="200" 
                                 height="200"
                                 decoding="async">
                         </div>
-                        <div class="provider-name">Mega H5</div>
+                        <div class="provider-name">megah5</div>
                     </div>
 
-                    <div class="provider-card" data-provider="JILI">
+                    <div class="provider-card" data-provider="jili">
                         <div class="provider-icon">
                             <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/jili-logo.png" 
-                                alt="JILI" 
+                                alt="jili" 
                                 class="provider-logo"
                                 loading="lazy"
                                 width="200" 
                                 height="200"
                                 decoding="async">
                         </div>
-                        <div class="provider-name">JILI</div>
+                        <div class="provider-name">jili</div>
                     </div>
 
-                                        <div class="provider-card" data-provider="PRAGMATIC">
+                                        <div class="provider-card" data-provider="pragmatic">
                         <div class="provider-icon">
                             <img src="https://res.cloudinary.com/dg8c5ocjs/image/upload/f_webp,q_60,w_200/providers/pragmatic-logo.png" 
-                                alt="PRAGMATIC" 
+                                alt="pragmatic" 
                                 class="provider-logo"
                                 loading="lazy"
                                 width="200" 
                                 height="200"
                                 decoding="async">
                         </div>
-                        <div class="provider-name">PRAGMATIC</div>
+                        <div class="provider-name">pragmatic</div>
                     </div>
                     
                     <div class="provider-card" data-provider="918kaya">
@@ -212,61 +212,6 @@
             </section>
         </main>
     </div>
-
-    <!-- DEFER NON-CRITICAL JS -->
     <script src="js/main.js" defer></script>
-    
-    <!-- INLINE CRITICAL JS FOR INSTANT LOAD -->
-    <script>
-        // Critical functionality untuk load pertama
-        document.addEventListener('DOMContentLoaded', function() {
-            // Update time immediately
-            function updateTime() {
-                const now = new Date();
-                const options = { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit', 
-                    second: '2-digit',
-                    timeZone: 'Asia/Kuala_Lumpur'
-                };
-                
-                const timeElement = document.getElementById('currentTime');
-                if (timeElement) {
-                    timeElement.textContent = now.toLocaleDateString('ms-MY', options);
-                }
-            }
-            
-            updateTime();
-            setInterval(updateTime, 1000);
-            
-            // Marquee animation control
-            const marquee = document.querySelector('.main-header .marquee-container');
-            if (marquee) {
-                marquee.addEventListener('mouseenter', () => {
-                    marquee.style.animationPlayState = 'paused';
-                });
-
-                marquee.addEventListener('mouseleave', () => {
-                    marquee.style.animationPlayState = 'running';
-                });
-            }
-
-            // Force layout stability on zoom
-            function maintainLayoutStability() {
-                document.body.style.zoom = '1';
-                const container = document.querySelector('.container');
-                if (container) {
-                    container.style.transform = 'scale(1)';
-                }
-            }
-
-            window.addEventListener('resize', maintainLayoutStability);
-            setInterval(maintainLayoutStability, 1000);
-        });
-    </script>
 </body>
 </html>
