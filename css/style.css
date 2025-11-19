@@ -101,9 +101,10 @@ body {
     position: relative;
     z-index: 2;
     width: 100%;
-    gap: clamp(12px, 2vw, 20px);
+    gap: clamp(15px, 2.5vw, 25px);
     flex-wrap: nowrap;
     min-width: 0;
+    align-items: stretch; /* Pastikan tinggi sama */
 }
 
 /* Logo Section - Untuk Teks */
@@ -111,28 +112,31 @@ body {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    min-width: clamp(100px, 15vw, 180px);
-    max-width: clamp(120px, 20vw, 200px);
-    height: clamp(45px, 7vh, 70px);
+    justify-content: center;
+    min-width: clamp(120px, 18vw, 200px);
+    max-width: clamp(140px, 22vw, 220px);
+    height: clamp(50px, 8vh, 75px);
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    padding: clamp(6px, 1vw, 10px) clamp(10px, 2vw, 15px);
+    padding: clamp(8px, 1.2vw, 12px) clamp(12px, 2vw, 18px);
     border: 1px solid rgba(100, 100, 255, 0.2);
     overflow: hidden;
+    position: relative;
 }
 
 .text-logo {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    text-align: left;
+    text-align: center;
     line-height: 1;
+    width: 100%;
+    height: 100%;
 }
 
 .n1-text {
-    font-size: clamp(2rem, 3vw, 2.2rem);
+    font-size: clamp(1.8rem, 2.8vw, 2.3rem);
     font-weight: 900;
     background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
     -webkit-background-clip: text;
@@ -141,19 +145,34 @@ body {
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     letter-spacing: 1px;
     transition: all 0.3s ease;
+    line-height: 0.9;
+    margin-bottom: -2px;
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .gang-text {
-    font-size: clamp(0.9rem, 2vw, 1.4rem);
+    font-size: clamp(0.75rem, 1.5vw, 1.1rem);
     font-weight: 700;
     background: linear-gradient(45deg, #FFA500, #FFD700, #FFA500);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 0 15px rgba(255, 165, 0, 0.4);
-    letter-spacing: 2px;
-    margin-top: -3px;
+    letter-spacing: 1.5px;
     transition: all 0.3s ease;
+    line-height: 1;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: -1px;
+}
+
+.logo-section::before {
+    content: '';
+    display: block;
+    padding-top: 40%; /* Maintain aspect ratio */
 }
 
 /* Hover effects */
@@ -244,11 +263,229 @@ body {
 
 /* Hero Banner - From Original */
 .hero-banner {
-    margin: clamp(20px, 4vw, 40px) 0;
+    margin: 15px 0 25px 0;
 }
 
 .banner-content {
+    display: flex;
+    justify-content: center;
+}
+
+.live-status-card {
+    background: linear-gradient(135deg, rgba(30, 30, 60, 0.95), rgba(20, 20, 40, 0.9));
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.live-status-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+    transition: 0.5s;
+}
+
+.live-status-card:hover::before {
+    left: 100%;
+}
+
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.live-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(177, 165, 3, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(138, 117, 0, 0.5);
+    position: relative;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff15;
+    border-radius: 50%;
+    animation: livePulse 1.5s infinite;
+}
+
+@keyframes livePulse {
+    0% { 
+        transform: scale(0.9); 
+        box-shadow: 0 0 0 0 rgba(56, 253, 6, 0.7); 
+    }
+    70% { 
+        transform: scale(1); 
+        box-shadow: 0 0 0 6px rgba(220, 20, 60, 0); 
+    }
+    100% { 
+        transform: scale(0.9); 
+        box-shadow: 0 0 0 0 rgba(220, 20, 60, 0); 
+    }
+}
+
+.live-badge span {
+    color: #00ff4c;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-time {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    text-align: right;
+    min-width: 150px;
+}
+
+#currentTime {
+    font-size: 0.75rem;
+    color: var(--primary-gold);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.status-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+#liveTime {
+    font-size: 0.9rem;
+    color: #00ff4c;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 255, 76, 0.5);
+    line-height: 1.2;
+}
+
+@media (max-width: 480px) {
+    .status-time {
+        min-width: 120px;
+    }
+    
+    #currentTime {
+        font-size: 0.7rem;
+    }
+    
+    #liveTime {
+        font-size: 0.8rem;
+    }
+}
+
+.stat-item {
     text-align: center;
+    padding: 12px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+    transition: 0.4s;
+}
+
+.stat-item:hover::before {
+    left: 100%;
+}
+
+.stat-item:hover {
+    background: rgba(255, 215, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.stat-label {
+    display: block;
+    color: #aaa;
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    display: block;
+    color: var(--primary-gold);
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Responsive untuk Live Status Card */
+@media (max-width: 768px) {
+    .live-status-card {
+        padding: 15px;
+        max-width: 100%;
+    }
+    
+    .status-stats {
+        gap: 10px;
+    }
+    
+    .stat-item {
+        padding: 10px 6px;
+    }
+    
+    .stat-value {
+        font-size: 1rem;
+    }
+    
+    .stat-label {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .live-status-card {
+        padding: 12px;
+    }
+    
+    .status-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .status-stats {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .stat-item {
+        padding: 8px;
+    }
 }
 
 .banner-title {
@@ -558,6 +795,272 @@ body {
     gap: 10px;
 }
 
+/* ===== BRAND MARQUEE STYLES ===== */
+.text-marquee {
+    width: 100%;
+    height: clamp(60px, 8vh, 70px);
+    background: linear-gradient(135deg, rgba(10, 10, 30, 0.9), rgba(15, 15, 40, 0.8));
+    border-radius: 15px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.marquee-text-container {
+    display: flex;
+    animation: textMarqueeScroll 25s linear infinite;
+    height: 100%;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.marquee-text-slide {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    height: 100%;
+    gap: 20px;
+}
+
+.marquee-text-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    min-width: 140px;
+    justify-content: center;
+    border: 2px solid transparent;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    margin: 0 10px; /* TAMBAH INI untuk extra spacing */
+}
+
+.brand-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.6s;
+    z-index: 1;
+}
+
+.marquee-text-item:hover .brand-glow {
+    left: 100%;
+}
+
+/* ACEBET77 - Emas Elegant */
+.brand-acebet {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(184, 134, 11, 0.2));
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.brand-acebet .brand-full {
+    background: linear-gradient(45deg, #FFD700, #FFF8DC, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.brand-acebet:hover {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    transform: translateY(-3px) scale(1.05);
+    border-color: #FFD700;
+}
+
+/* KGAME99 - Biru & Emas */
+.brand-kgame {
+    background: linear-gradient(135deg, rgba(30, 144, 255, 0.15), rgba(70, 130, 180, 0.2));
+    border: 2px solid rgba(30, 144, 255, 0.5);
+    box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
+}
+
+.brand-kgame-text {
+    color: #1E90FF;
+    text-shadow: 0 0 15px rgba(30, 144, 255, 0.7);
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.brand-number {
+    background: linear-gradient(45deg, #FFD700, #FFF8DC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    font-size: 1rem;
+    margin-left: 2px;
+    position: relative;
+    z-index: 2;
+}
+
+.brand-kgame:hover {
+    box-shadow: 0 0 30px rgba(30, 144, 255, 0.6);
+    transform: translateY(-3px) scale(1.05);
+    border-color: #1E90FF;
+}
+
+/* UBETCLUB - Merah & Biru */
+.brand-ubet {
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.15), rgba(30, 144, 255, 0.15));
+    border: 2px solid rgba(220, 20, 60, 0.5);
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.3);
+}
+
+.brand-ubet-text {
+    color: #DC143C;
+    text-shadow: 0 0 15px rgba(220, 20, 60, 0.7);
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.brand-club-text {
+    color: #1E90FF;
+    text-shadow: 0 0 15px rgba(30, 144, 255, 0.7);
+    font-size: 1rem;
+    margin-left: 2px;
+    position: relative;
+    z-index: 2;
+}
+
+.brand-ubet:hover {
+    box-shadow: 0 0 30px rgba(220, 20, 60, 0.6);
+    transform: translateY(-3px) scale(1.05);
+    border-color: #DC143C;
+}
+
+/* LV168 - Putih Mewah */
+.brand-lv {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(200, 200, 200, 0.15));
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.brand-lv-text {
+    color: #FFFFFF;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(45deg, #FFFFFF, #F0F0F0, #FFFFFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.brand-lv:hover {
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.6);
+    transform: translateY(-3px) scale(1.05);
+    border-color: #FFFFFF;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(230, 230, 230, 0.25));
+}
+
+/* EP389 - Hijau & Hitam */
+.brand-ep {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.95));
+    border: 2px solid #32CD32;
+    box-shadow: 
+        0 0 20px rgba(50, 205, 50, 0.5),
+        inset 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+.brand-ep-text {
+    color: #32CD32;
+    text-shadow: 0 0 10px rgba(50, 205, 50, 0.8);
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+    font-weight: 900;
+}
+
+.brand-ep-number {
+    color: #000000;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    font-size: 1rem;
+    margin-left: 2px;
+    position: relative;
+    z-index: 2;
+    font-weight: 900;
+    background: linear-gradient(45deg, #000000, #333333, #000000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.brand-ep:hover {
+    box-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.774),
+        inset 0 0 20px rgba(255, 255, 255, 0.767);
+    transform: translateY(-3px) scale(1.05);
+    border-color: #ffffffbe;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(245, 245, 245, 0.808));
+}
+
+/* Animations */
+@keyframes textMarqueeScroll {
+    0% { 
+        transform: translateX(0); 
+    }
+    100% { 
+        transform: translateX(-50%); 
+    }
+}
+
+.text-marquee:hover .marquee-text-container {
+    animation-play-state: paused;
+}
+
+/* Pulse Effects */
+@keyframes goldPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+}
+
+@keyframes bluePulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(30, 144, 255, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(225, 226, 228, 0.6); }
+}
+
+@keyframes redPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(220, 20, 60, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(220, 20, 60, 0.6); }
+}
+
+@keyframes whitePulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 35px rgba(24, 2, 122, 0.6); }
+}
+
+@keyframes greenPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(50, 205, 50, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(50, 205, 50, 0.6); }
+}
+
+/* Apply pulse animations */
+.brand-acebet { animation: goldPulse 3s ease-in-out infinite; }
+.brand-kgame { animation: bluePulse 3s ease-in-out infinite 0.5s; }
+.brand-ubet { animation: redPulse 3s ease-in-out infinite 1s; }
+.brand-lv { animation: whitePulse 3s ease-in-out infinite 1.5s; }
+.brand-ep { animation: greenPulse 3s ease-in-out infinite 2s; }
+
 @media (min-width: 1200px) {
     .games-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -602,6 +1105,99 @@ body {
 
 .marquee-particle {
     animation: particleFloat 1s ease-out forwards;
+}
+
+* Fix for specific zoom levels */
+@media (max-width: 768px) {
+    .logo-section {
+        min-width: 110px;
+        max-width: 150px;
+        height: 55px;
+        padding: 6px 10px;
+    }
+    
+    .n1-text {
+        font-size: 1.6rem;
+        margin-bottom: -1px;
+    }
+    
+    .gang-text {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-section {
+        min-width: 100px;
+        max-width: 130px;
+        height: 50px;
+        padding: 5px 8px;
+    }
+    
+    .n1-text {
+        font-size: 1.4rem;
+    }
+    
+    .gang-text {
+        font-size: 0.65rem;
+        letter-spacing: 0.8px;
+    }
+}
+
+/* Fix for very small screens */
+@media (max-width: 360px) {
+    .logo-section {
+        min-width: 90px;
+        max-width: 110px;
+        height: 45px;
+    }
+    
+    .n1-text {
+        font-size: 1.2rem;
+    }
+    
+    .gang-text {
+        font-size: 0.6rem;
+    }
+}
+
+/* Prevent text breaking on zoom */
+.text-logo {
+    word-wrap: normal;
+    white-space: nowrap;
+}
+
+.n1-text, .gang-text {
+    word-wrap: normal;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .marquee-text-slide {
+        gap: 20px; /* Sedikit lebih kecil di tablet */
+    }
+    
+    .marquee-text-item {
+        padding: 8px 15px;
+        margin: 0 8px;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .marquee-text-slide {
+        gap: 15px; /* Lebih kecil di mobile */
+    }
+    
+    .marquee-text-item {
+        padding: 6px 12px;
+        margin: 0 5px;
+        min-width: 100px;
+    }
 }
 
 /* Untuk tablet */
