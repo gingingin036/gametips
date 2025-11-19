@@ -23,32 +23,75 @@ class GamePlatform {
     }
 
     init() {
-        this.updateTime();
+        this.updateTime(); // Panggil sekali saat init
         this.setupGameRotation();
         this.generateGames();
         this.setupEventListeners();
-        
-        setInterval(() => this.updateTime(), 30000);
+    
+    // UBAH: dari 30000ms (30 detik) menjadi 1000ms (1 detik)
+    setInterval(() => this.updateTime(), 1000);
     }
 
     updateTime() {
-        const now = new Date();
-        const options = { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit', 
-            second: '2-digit',
-            timeZone: 'Asia/Kuala_Lumpur'
-        };
-        
-        const timeElement = document.getElementById('currentTime');
-        if (timeElement) {
-            timeElement.textContent = now.toLocaleDateString('ms-MY', options);
-        }
+    const now = new Date();
+    
+    // Format waktu: HH:MM:SS
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
+    
+    // Update waktu live
+    const timeElement = document.getElementById('liveTime');
+    if (timeElement) {
+        timeElement.textContent = timeString;
     }
+
+    const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        timeZone: 'Asia/Kuala_Lumpur'
+    };
+    
+    const dateElement = document.getElementById('currentTime');
+    if (dateElement) {
+        dateElement.textContent = now.toLocaleDateString('ms-MY', options);
+    }
+    
+    // Update semua statistik secara real-time
+    this.updateLiveStats();
+}
+
+updateLiveStats() {
+    // Active Players (1500-2500)
+    const playerElement = document.getElementById('totalmember');
+    if (playerElement) {
+        const basePlayers = 1800;
+        const fluctuation = Math.floor(Math.random() * 200) - 100; // -100 to +100
+        const currentPlayers = basePlayers + fluctuation;
+        playerElement.textContent = currentPlayers.toLocaleString();
+    }
+    
+    // Games Online (120-130)
+    const gamesElement = document.getElementById('playeronline');
+    if (gamesElement) {
+        const baseGames = 125;
+        const fluctuation = Math.floor(Math.random() * 6) - 3; // -3 to +3
+        const currentGames = baseGames + fluctuation;
+        gamesElement.textContent = currentGames;
+    }
+    
+    // Win Rate (97.0% - 98.5%)
+    const winRateElement = document.getElementById('winRate');
+    if (winRateElement) {
+        const baseRate = 97.8;
+        const fluctuation = (Math.random() * 0.3) - 0.15; // -0.15 to +0.15
+        const currentRate = Math.min(98.5, Math.max(97.0, baseRate + fluctuation));
+        winRateElement.textContent = currentRate.toFixed(1) + '%';
+    }
+}
 
     setupGameRotation() {
         // Rotate setiap 3 jam
@@ -511,164 +554,97 @@ class TextLogoAnimator {
     }
 }
 
-// Marquee Logo Animator Class - PASTIKAN DI LUAR TextLogoAnimator
-// Marquee Logo Animator Class - TAMBAHKAN INI
-class MarqueeAnimator {
+// ===== BRAND MARQUEE ANIMATOR =====
+class BrandMarqueeAnimator {
     constructor() {
         this.marqueeContainer = null;
-        this.logoSlides = [];
+        this.brandItems = [];
         this.init();
     }
 
     init() {
         setTimeout(() => {
-            this.marqueeContainer = document.querySelector('.main-header .marquee-container');
+            this.marqueeContainer = document.querySelector('.text-marquee .marquee-text-container');
             if (this.marqueeContainer) {
-                this.logoSlides = this.marqueeContainer.querySelectorAll('.logo-slide');
-                this.startMarqueeAnimations();
+                this.brandItems = this.marqueeContainer.querySelectorAll('.marquee-text-item');
+                this.startBrandAnimations();
+                this.addClickEffects();
             }
-        }, 1500);
+        }, 1000);
     }
 
-    startMarqueeAnimations() {
-        // 1. Sequential Entrance Animation
+    startBrandAnimations() {
+        // 1. Staggered Entrance Animation
         this.animateEntrance();
         
-        // 2. Continuous Glow Pulse
-        this.startGlowPulse();
+        // 2. Continuous Color Intensity Variation
+        this.startColorIntensity();
         
-        // 3. Random Bounce Effects
-        this.startRandomBounce();
-        
-        // 4. Hover Enhancement
-        this.enhanceHoverEffects();
+        // 3. Random Float Effects
+        this.startRandomFloat();
     }
 
     animateEntrance() {
-        this.logoSlides.forEach((slide, index) => {
-            // Reset untuk animation
-            slide.style.opacity = '0';
-            slide.style.transform = 'translateY(20px) scale(0.8)';
+        this.brandItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px) scale(0.8)';
             
-            // Staggered entrance
             setTimeout(() => {
-                slide.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                slide.style.opacity = '1';
-                slide.style.transform = 'translateY(0) scale(1)';
+                item.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0) scale(1)';
             }, index * 200);
         });
     }
 
-    startGlowPulse() {
+    startColorIntensity() {
         setInterval(() => {
-            this.logoSlides.forEach((slide, index) => {
-                const delay = index * 300;
+            this.brandItems.forEach((item, index) => {
                 setTimeout(() => {
-                    if (slide.isHovered) return; // Skip if hovered
-                    
-                    slide.style.boxShadow = `
-                        0 0 20px rgba(100, 100, 255, 0.4),
-                        0 0 40px rgba(255, 215, 0, 0.2)
-                    `;
+                    const intensity = 0.7 + Math.random() * 0.3;
+                    item.style.filter = `brightness(${intensity})`;
                     
                     setTimeout(() => {
-                        if (!slide.isHovered) {
-                            slide.style.boxShadow = `
-                                0 0 10px rgba(100, 100, 255, 0.2),
-                                0 0 20px rgba(255, 215, 0, 0.1)
-                            `;
-                        }
-                    }, 600);
-                }, delay);
+                        item.style.filter = 'brightness(1)';
+                    }, 1000);
+                }, index * 300);
+            });
+        }, 4000);
+    }
+
+    startRandomFloat() {
+        setInterval(() => {
+            this.brandItems.forEach(item => {
+                if (Math.random() < 0.2) {
+                    this.animateFloat(item);
+                }
             });
         }, 3000);
     }
 
-    startRandomBounce() {
-        setInterval(() => {
-            this.logoSlides.forEach(slide => {
-                if (Math.random() < 0.1 && !slide.isHovered) {
-                    this.animateBounce(slide);
-                }
-            });
-        }, 2000);
-    }
-
-    animateBounce(slide) {
-        slide.style.transform = 'translateY(-8px) scale(1.05)';
-        slide.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+    animateFloat(item) {
+        item.style.transform = 'translateY(-5px) scale(1.02)';
+        item.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
         
         setTimeout(() => {
-            if (!slide.isHovered) {
-                slide.style.transform = 'translateY(0) scale(1)';
-            }
-        }, 300);
+            item.style.transform = 'translateY(0) scale(1)';
+        }, 800);
     }
 
-    enhanceHoverEffects() {
-        this.logoSlides.forEach(slide => {
-            // Track hover state
-            slide.isHovered = false;
-            
-            slide.addEventListener('mouseenter', () => {
-                slide.isHovered = true;
+    addClickEffects() {
+        this.brandItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Add click animation
+                item.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    item.style.transform = 'scale(1)';
+                }, 150);
                 
-                // Enhanced hover effects
-                slide.style.transform = 'translateY(-10px) scale(1.1)';
-                slide.style.boxShadow = `
-                    0 15px 35px rgba(100, 100, 255, 0.5),
-                    0 0 50px rgba(255, 215, 0, 0.3),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                `;
-                slide.style.borderColor = 'rgba(255, 215, 0, 0.8)';
-                
-                // Add particle effect on hover
-                this.createHoverParticles(slide);
-            });
-            
-            slide.addEventListener('mouseleave', () => {
-                slide.isHovered = false;
-                
-                slide.style.transform = 'translateY(0) scale(1)';
-                slide.style.boxShadow = `
-                    0 0 10px rgba(100, 100, 255, 0.2),
-                    0 0 20px rgba(255, 215, 0, 0.1)
-                `;
-                slide.style.borderColor = 'rgba(100, 100, 255, 0.2)';
+                // Show brand name in console
+                const brandText = item.textContent || item.innerText;
+                console.log(`Brand clicked: ${brandText}`);
             });
         });
-    }
-
-    createHoverParticles(slide) {
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => {
-                const particle = document.createElement('div');
-                particle.className = 'marquee-particle';
-                particle.innerHTML = '⭐';
-                
-                const rect = slide.getBoundingClientRect();
-                const x = Math.random() * rect.width;
-                
-                particle.style.cssText = `
-                    position: absolute;
-                    left: ${x}px;
-                    top: ${rect.height}px;
-                    font-size: ${8 + Math.random() * 6}px;
-                    opacity: 0;
-                    pointer-events: none;
-                    z-index: 5;
-                    animation: particleFloat 1s ease-out forwards;
-                `;
-                
-                slide.appendChild(particle);
-                
-                setTimeout(() => {
-                    if (particle.parentNode) {
-                        particle.remove();
-                    }
-                }, 1000);
-            }, i * 200);
-        }
     }
 }
 
@@ -758,29 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.textLogoAnimator = new TextLogoAnimator();
 
         // Enhanced marquee controls
-        const marquees = document.querySelectorAll('.marquee-container');
-        marquees.forEach(marquee => {
-            let isPaused = false;
-
-            marquee.addEventListener('mouseenter', () => {
-                isPaused = true;
-                marquee.style.animationPlayState = 'paused';
-            });
-
-            marquee.addEventListener('mouseleave', () => {
-                isPaused = false;
-                marquee.style.animationPlayState = 'running';
-            });
-
-            // Pause marquee when window is not visible
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    marquee.style.animationPlayState = 'paused';
-                } else if (!isPaused) {
-                    marquee.style.animationPlayState = 'running';
-                }
-            });
-        });
+        window.brandMarqueeAnimator = new BrandMarqueeAnimator();
 
     } catch (error) {
         console.error('Initialization error:', error);
