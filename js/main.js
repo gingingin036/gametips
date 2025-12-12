@@ -423,7 +423,8 @@ class TextLogoAnimator {
     constructor() {
         this.mainElement = null;
         this.subElement = null;
-        this.logoFrame = null; // Ubah dari logoSection ke logoFrame
+        this.logoFrame = null;
+        this.wrapperElement = null;
         this.isAnimating = false;
         this.init();
     }
@@ -432,10 +433,11 @@ class TextLogoAnimator {
         setTimeout(() => {
             this.mainElement = document.querySelector('.main-text');
             this.subElement = document.querySelector('.sub-text');
-            this.logoFrame = document.querySelector('.logo-frame'); // Ubah selector
+            this.logoFrame = document.querySelector('.logo-frame');
+            this.wrapperElement = document.querySelector('.text-scaling-wrapper');
             
             if (this.mainElement && this.subElement) {
-                this.setOptimalFontSize();
+                this.autoScaleLogo();
                 this.startAnimations();
                 this.addHoverEffects();
                 this.addSparkleEffects();
@@ -444,6 +446,162 @@ class TextLogoAnimator {
         }, 100);
     }
 
+    // Fungsi utama: auto-scale berdasarkan lebar frame
+    autoScaleLogo() {
+        if (!this.logoFrame || !this.wrapperElement) return;
+        
+        const frameWidth = this.logoFrame.offsetWidth;
+        const textWidth = this.getTextWidth();
+        
+        // Jika teks lebih lebar dari frame, scale down
+        if (textWidth > frameWidth - 30) { // -30 untuk padding
+            const scaleFactor = (frameWidth - 30) / textWidth;
+            const safeScale = Math.max(0.5, Math.min(1, scaleFactor * 0.95));
+            
+            this.wrapperElement.style.transform = `scale(${safeScale})`;
+            console.log('Auto-scaled logo:', { 
+                frameWidth, 
+                textWidth, 
+                scaleFactor: safeScale 
+            });
+        } else {
+            // Reset ke normal
+            this.wrapperElement.style.transform = 'scale(1)';
+        }
+    }
+
+    // Hitung lebar total teks
+    getTextWidth() {
+        if (!this.mainElement || !this.subElement) return 0;
+        
+        // Buat elemen sementara untuk mengukur
+        const tempDiv = document.createElement('div');
+        tempDiv.style.cssText = `
+            position: absolute;
+            visibility: hidden;
+            white-space: nowrap;
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        `;
+        
+        // Clone teks
+        const mainClone = this.mainElement.cloneNode(true);
+        const subClone = this.subElement.cloneNode(true);
+        
+        tempDiv.appendChild(mainClone);
+        tempDiv.appendChild(subClone);
+        document.body.appendChild(tempDiv);
+        
+        const width = tempDiv.offsetWidth;
+        document.body.removeChild(tempDiv);
+        
+        return width;
+    }
+
+    startAnimations() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        
+        // 1. Pulsating Glow Effect
+        this.createPulsatingGlow();
+        
+        // 2. Subtle Float Animation 
+        this.createFloatEffect();
+    }
+
+    createPulsatingGlow() {
+        setInterval(() => {
+            if (!this.mainElement || !this.subElement) return;
+            
+            const intensity = 15 + Math.random() * 15;
+            const mainGlow = `0 0 ${intensity}px rgba(255, 215, 0, 0.7)`;
+            const subGlow = `0 0 ${intensity * 0.8}px rgba(255, 165, 0, 0.6)`;
+            
+            this.mainElement.style.textShadow = mainGlow;
+            this.subElement.style.textShadow = subGlow;
+        }, 1500);
+    }    
+
+    createFloatEffect() {
+        const animate = () => {
+            if (!this.wrapperElement) return;
+            
+            const time = Date.now() / 1800;
+            const floatOffset = Math.sin(time) * 1.2;
+            
+            this.wrapperElement.style.transform = 
+                `${this.wrapperElement.style.transform || 'scale(1)'} translateY(${floatOffset}px)`;
+            
+            requestAnimationFrame(animate);
+        };
+        animate();
+    }
+
+    createSparkleParticle() {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-particle';
+        sparkle.innerHTML = '✨';
+        
+        const logoRect = this.logoFrame.getBoundingClientRect();
+        const x = Math.random() * (logoRect.width - 20) + 10;
+        const y = Math.random() * (logoRect.height - 20) + 10;
+        
+        sparkle.style.cssText = `
+            position: absolute;
+            left: ${x}px;
+            top: ${y}px;
+            font-size: ${10 + Math.random() * 8}px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            animation: sparkleFloat 1.5s ease-out forwards;
+            filter: drop-shadow(0 0 3px gold);
+        `;
+        
+        this.logoFrame.style.position = 'relative';
+        this.logoFrame.appendChild(sparkle);
+        
+        setTimeout(() => {
+            if (sparkle.parentNode) sparkle.remove();
+        }, 1500);
+    }
+
+    addSparkleEffects() {
+        setInterval(() => {
+            if (!this.logoFrame || Math.random() < 0.3) return;
+            this.createSparkleParticle();
+        }, 800);
+    }
+
+    addHoverEffects() {
+        if (!this.logoFrame) return;
+        
+        this.logoFrame.addEventListener('mouseenter', () => {
+            if (!this.mainElement || !this.subElement) return;
+            
+            // Intensify glow
+            this.mainElement.style.textShadow = 
+                '0 3px 8px rgba(0, 0, 0, 0.7), 0 0 50px rgba(255, 215, 0, 0.9), 0 0 70px rgba(255, 215, 0, 0.6)';
+            this.subElement.style.textShadow = 
+                '0 2px 6px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 165, 0, 0.8), 0 0 60px rgba(255, 165, 0, 0.5)';
+            
+            // Create sparkle burst
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => this.createSparkleParticle(), i * 80);
+            }
+        });
+
+        this.logoFrame.addEventListener('mouseleave', () => {
+            if (!this.mainElement || !this.subElement) return;
+            
+            // Return to normal animation
+            setTimeout(() => {
+                this.createPulsatingGlow();
+            }, 200);
+        });
+    }
+    
     // Fungsi untuk set ukuran font optimal berdasarkan teks panjang
     setOptimalFontSize() {
         if (!this.mainElement || !this.subElement || !this.logoFrame) return;
