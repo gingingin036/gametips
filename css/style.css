@@ -122,6 +122,7 @@ body {
     border: 1px solid rgba(100, 100, 255, 0.2);
     overflow: hidden;
     position: relative;
+    box-sizing: border-box;
 }
 
 .text-logo {
@@ -135,50 +136,55 @@ body {
     height: 100%;
 }
 
-.n1-text {
-    font-size: clamp(1.8rem, 2.8vw, 2.3rem);
+.main-text {
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
     font-weight: 900;
     background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     transition: all 0.3s ease;
-    line-height: 0.9;
-    margin-bottom: -2px;
+    line-height: 0.95;
     display: block;
     width: 100%;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: -2px;
 }
 
-.gang-text {
-    font-size: clamp(0.75rem, 1.5vw, 1.1rem);
-    font-weight: 700;
+.sub-text {
+    font-size: clamp(0.6rem, 1vw, 0.9rem);
+    font-weight: 1000;
     background: linear-gradient(45deg, #FFA500, #FFD700, #FFA500);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 0 15px rgba(255, 165, 0, 0.4);
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
     line-height: 1;
     display: block;
     width: 100%;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-top: -1px;
 }
 
-.logo-section::before {
-    content: '';
-    display: block;
-    padding-top: 40%; /* Maintain aspect ratio */
+.logo-section:hover .main-text {
+    text-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+    transform: scale(1.03);
 }
 
 /* Hover effects */
-.logo-section:hover .n1-text {
-    text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-    transform: scale(1.05);
+.logo-section:hover .sub-text {
+    text-shadow: 0 0 20px rgba(255, 165, 0, 0.7);
+    transform: scale(1.03);
 }
 
 .logo-section:hover .gang-text {
@@ -1113,66 +1119,75 @@ body {
         min-width: 110px;
         max-width: 150px;
         height: 55px;
-        padding: 6px 10px;
+        padding: 6px 8px;
     }
     
-    .n1-text {
-        font-size: 1.6rem;
+    .main-text {
+        font-size: clamp(1rem, 1.8vw, 1.4rem);
         margin-bottom: -1px;
+        letter-spacing: 0.3px;
     }
     
-    .gang-text {
-        font-size: 0.7rem;
-        letter-spacing: 1px;
+    .sub-text {
+        font-size: clamp(0.5rem, 0.9vw, 0.7rem);
+        letter-spacing: 0.8px;
         margin-top: 0;
+    }
+
+    .header-content {
+        gap: 8px;
     }
 }
 
 @media (max-width: 480px) {
     .logo-section {
-        min-width: 100px;
-        max-width: 130px;
-        height: 50px;
-        padding: 5px 8px;
+        min-width: 90px;
+        max-width: 120px;
+        height: 45px;
+        padding: 4px 6px;
     }
     
-    .n1-text {
-        font-size: 1.4rem;
+    .main-text {
+        font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+        line-height: 0.9;
     }
     
-    .gang-text {
-        font-size: 0.65rem;
-        letter-spacing: 0.8px;
+    .sub-text {
+        font-size: clamp(0.45rem, 0.8vw, 0.65rem);
+        letter-spacing: 0.7px;
     }
 }
 
 /* Fix for very small screens */
 @media (max-width: 360px) {
     .logo-section {
-        min-width: 90px;
-        max-width: 110px;
-        height: 45px;
+        min-width: 80px;
+        max-width: 100px;
+        height: 40px;
+        padding: 3px 5px;
     }
     
-    .n1-text {
-        font-size: 1.2rem;
+    .main-text {
+        font-size: 0.85rem;
     }
     
-    .gang-text {
-        font-size: 0.6rem;
+    .sub-text {
+        font-size: 0.5rem;
     }
 }
 
 /* Prevent text breaking on zoom */
 .text-logo {
-    word-wrap: normal;
-    white-space: nowrap;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.n1-text, .gang-text {
+.main-text, .sub-text {
+    max-width: 100%;
+    overflow-wrap: normal;
     word-wrap: normal;
-    white-space: nowrap;
-    overflow: visible;
 }
 
 /* Responsive Design */
@@ -1280,4 +1295,47 @@ body {
         height: 30px;
         margin: 0 6px;
     }
+}
+
+/* Sparkle Animation - Tambahkan di akhir CSS */
+@keyframes sparkleFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-15px) scale(1) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0) rotate(360deg);
+    }
+}
+
+.text-sparkle {
+    animation: sparkleFloat 1.2s ease-out forwards;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Smooth transitions */
+.main-text, .sub-text {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Prevent text selection */
+.logo-section {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Perfect alignment */
+.text-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateZ(0); /* Hardware acceleration */
+    will-change: transform;
 }
