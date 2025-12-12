@@ -190,6 +190,7 @@ body {
     margin-bottom: 1px;
     position: relative;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
     text-align: center;
 }
 
@@ -411,88 +412,6 @@ body {
         0 0 50px rgba(255, 165, 0, 0.5),
         0 0 65px rgba(255, 165, 0, 0.3);
     transform: scale(1.05);
-}
-
-/* Responsive Design untuk .logo-frame */
-@media (max-width: 1024px) {
-    .logo-frame {
-        min-width: clamp(150px, 22vw, 250px);
-        max-width: clamp(170px, 25vw, 270px);
-        height: clamp(52px, 8vh, 80px);
-    }
-    
-    .main-text {
-        font-size: clamp(1.3rem, 2.2vw, 1.9rem);
-    }
-    
-    .sub-text {
-        font-size: clamp(0.75rem, 1.2vw, 1rem);
-    }
-}
-
-@media (max-width: 768px) {
-    .logo-frame {
-        min-width: clamp(140px, 20vw, 220px);
-        max-width: clamp(160px, 23vw, 240px);
-        height: clamp(50px, 7.5vh, 75px);
-        padding: 6px 10px;
-        border-radius: 14px;
-    }
-    
-    .main-text {
-        font-size: clamp(1.2rem, 2vw, 1.7rem);
-    }
-    
-    .sub-text {
-        font-size: clamp(0.7rem, 1.1vw, 0.9rem);
-    }
-}
-
-@media (max-width: 480px) {
-    .logo-frame {
-        min-width: clamp(130px, 18vw, 200px);
-        max-width: clamp(150px, 21vw, 220px);
-        height: clamp(48px, 7vh, 70px);
-        padding: 5px 8px;
-        border-radius: 12px;
-        border-width: 1.5px;
-    }
-    
-    .main-text {
-        font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-    }
-    
-    .sub-text {
-        font-size: clamp(0.65rem, 1vw, 0.8rem);
-    }
-    
-    .logo-corner {
-        width: 15px;
-        height: 15px;
-    }
-}
-
-@media (max-width: 360px) {
-    .logo-frame {
-        min-width: 120px;
-        max-width: 180px;
-        height: 45px;
-        padding: 4px 6px;
-        border-radius: 10px;
-    }
-    
-    .main-text {
-        font-size: 1rem;
-    }
-    
-    .sub-text {
-        font-size: 0.6rem;
-    }
-    
-    /* Sembunyikan corners di sangat kecil */
-    .logo-corner {
-        display: none;
-    }
 }
 
 /* Animasi gradient bergerak */
