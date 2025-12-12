@@ -423,44 +423,73 @@ class TextLogoAnimator {
     constructor() {
         this.mainElement = null;
         this.subElement = null;
-        this.logoSection = null;
+        this.logoFrame = null; // Ubah dari logoSection ke logoFrame
         this.isAnimating = false;
         this.init();
     }
 
     init() {
-        // Tunggu DOM siap
         setTimeout(() => {
             this.mainElement = document.querySelector('.main-text');
             this.subElement = document.querySelector('.sub-text');
-            this.logoSection = document.querySelector('.logo-section');
+            this.logoFrame = document.querySelector('.logo-frame'); // Ubah selector
             
             if (this.mainElement && this.subElement) {
+                this.setOptimalFontSize();
                 this.startAnimations();
                 this.addHoverEffects();
-                this.adjustFontSizes(); // Tambahkan penyesuaian font size
+                this.addSparkleEffects();
+                this.setupResizeListener();
             }
         }, 100);
     }
 
-        adjustFontSizes() {
-        if (!this.mainElement || !this.subElement) return;
+    // Fungsi untuk set ukuran font optimal berdasarkan teks panjang
+    setOptimalFontSize() {
+        if (!this.mainElement || !this.subElement || !this.logoFrame) return;
         
-        const logoWidth = this.logoSection.offsetWidth;
         const mainText = this.mainElement.textContent;
         const subText = this.subElement.textContent;
+        const logoWidth = this.logoFrame.offsetWidth;
         
-        // Adjust untuk teks panjang "MENANG SINI"
-        if (mainText.length > 8 && logoWidth < 120) {
-            this.mainElement.style.fontSize = '0.9rem';
-            this.mainElement.style.letterSpacing = '0.2px';
+        // Set attribute untuk CSS targeting
+        if (mainText.length > 8 || subText.length > 10) {
+            this.logoFrame.setAttribute('data-text-length', 'long'); // Ubah ke logoFrame
+        } else {
+            this.logoFrame.setAttribute('data-text-length', 'normal'); // Ubah ke logoFrame
         }
         
-        // Adjust untuk teks panjang "PARTNERSHIP"
-        if (subText.length > 10 && logoWidth < 120) {
-            this.subElement.style.fontSize = '0.5rem';
-            this.subElement.style.letterSpacing = '0.5px';
-        }
+        // Dynamic font size adjustment
+        const calculateOptimalFontSize = (text, baseSize, minSize) => {
+            const avgCharWidth = 0.6; // Approx width per character in rem
+            const maxChars = (logoWidth / 16) / avgCharWidth; // Convert px to rem
+            
+            if (text.length > maxChars * 0.8) {
+                return `calc(${baseSize} * 0.85)`;
+            }
+            return baseSize;
+        };
+        
+        // Apply calculated sizes
+        this.mainElement.style.fontSize = calculateOptimalFontSize(
+            mainText, 
+            'clamp(1.4rem, 2.5vw, 2.2rem)', 
+            '1rem'
+        );
+        
+        this.subElement.style.fontSize = calculateOptimalFontSize(
+            subText, 
+            'clamp(0.8rem, 1.4vw, 1.2rem)', 
+            '0.6rem'
+        );
+        
+        console.log('Logo optimized:', {
+            width: logoWidth,
+            mainText: mainText,
+            subText: subText,
+            mainFontSize: this.mainElement.style.fontSize,
+            subFontSize: this.subElement.style.fontSize
+        });
     }
 
     startAnimations() {
@@ -473,120 +502,130 @@ class TextLogoAnimator {
         // 2. Subtle Float Animation 
         this.createFloatEffect();
         
-        // 3. Random Sparkle Effect (optional)
-        this.createSparkleEffect();
+        // 3. Continuous sparkle
+        this.createContinuousSparkles();
     }
 
     createPulsatingGlow() {
         setInterval(() => {
             if (!this.mainElement || !this.subElement) return;
             
-            const intensity = 10 + Math.random() * 10;
-            this.mainElement.style.textShadow = `0 0 ${intensity}px rgba(255, 215, 0, 0.6)`;
-            this.subElement.style.textShadow = `0 0 ${intensity}px rgba(255, 165, 0, 0.5)`;
-        }, 2000);
+            const intensity = 15 + Math.random() * 15;
+            const mainGlow = `0 0 ${intensity}px rgba(255, 215, 0, 0.7)`;
+            const subGlow = `0 0 ${intensity * 0.8}px rgba(255, 165, 0, 0.6)`;
+            
+            this.mainElement.style.textShadow = mainGlow;
+            this.subElement.style.textShadow = subGlow;
+        }, 1500);
     }
 
     createFloatEffect() {
         const animate = () => {
             if (!this.mainElement || !this.subElement) return;
             
-            const floatOffset = Math.sin(Date.now() / 1500) * 1; // Lebih halus
+            const time = Date.now() / 1800;
+            const floatOffset = Math.sin(time) * 1.2;
+            
             this.mainElement.style.transform = `translateY(${floatOffset}px) scale(1)`;
-            this.subElement.style.transform = `translateY(${floatOffset * 0.6}px) scale(1)`;
+            this.subElement.style.transform = `translateY(${floatOffset * 0.5}px) scale(1)`;
             
             requestAnimationFrame(animate);
         };
         animate();
     }
 
-    createSparkleEffect() {
+    createContinuousSparkles() {
         setInterval(() => {
-            if (!this.logoSection || Math.random() < 0.15) return;
-            
+            if (!this.logoFrame || Math.random() < 0.3) return; // Ubah ke logoFrame
             this.createSparkleParticle();
-        }, 1500);
+        }, 800);
     }
 
     createSparkleParticle() {
         const sparkle = document.createElement('div');
-        sparkle.className = 'text-sparkle';
+        sparkle.className = 'sparkle-particle';
         sparkle.innerHTML = '✨';
         
-        const logoRect = this.logoSection.getBoundingClientRect();
-        const x = 5 + Math.random() * (logoRect.width - 10);
-        const y = 5 + Math.random() * (logoRect.height - 10);
+        const logoRect = this.logoFrame.getBoundingClientRect(); // Ubah ke logoFrame
+        const x = Math.random() * (logoRect.width - 20) + 10;
+        const y = Math.random() * (logoRect.height - 20) + 10;
         
         sparkle.style.cssText = `
             position: absolute;
             left: ${x}px;
             top: ${y}px;
-            font-size: ${8 + Math.random() * 4}px;
+            font-size: ${10 + Math.random() * 8}px;
             opacity: 0;
             pointer-events: none;
             z-index: 10;
-            animation: sparkleFloat 1.2s ease-out forwards;
+            animation: sparkleFloat 1.5s ease-out forwards;
+            filter: drop-shadow(0 0 3px gold);
         `;
         
-        this.logoSection.style.position = 'relative';
-        this.logoSection.appendChild(sparkle);
+        this.logoFrame.style.position = 'relative'; // Ubah ke logoFrame
+        this.logoFrame.appendChild(sparkle); // Ubah ke logoFrame
         
-        // Remove sparkle after animation
         setTimeout(() => {
-            if (sparkle.parentNode) {
-                sparkle.remove();
-            }
-        }, 1200);
+            if (sparkle.parentNode) sparkle.remove();
+        }, 1500);
+    }
+
+    addSparkleEffects() {
+        const sparkleContainer = this.logoFrame.querySelector('.logo-sparkle'); // Ubah ke logoFrame
+        if (!sparkleContainer) return;
+        
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                this.createSparkleParticle();
+            }, i * 300);
+        }
     }
 
     addHoverEffects() {
-        if (!this.logoSection) return;
+        if (!this.logoFrame) return; // Ubah ke logoFrame
         
-        this.logoSection.addEventListener('mouseenter', () => {
+        this.logoFrame.addEventListener('mouseenter', () => { // Ubah ke logoFrame
             if (!this.mainElement || !this.subElement) return;
             
-            // Scale up on hover
-            this.mainElement.style.transform = 'scale(1.05)';
-            this.subElement.style.transform = 'scale(1.05)';
+            // Intensify effects
+            this.mainElement.style.textShadow = 
+                '0 3px 8px rgba(0, 0, 0, 0.7), 0 0 50px rgba(255, 215, 0, 0.9), 0 0 70px rgba(255, 215, 0, 0.6)';
+            this.subElement.style.textShadow = 
+                '0 2px 6px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 165, 0, 0.8), 0 0 60px rgba(255, 165, 0, 0.5)';
             
-            // Intensify glow
-            this.mainElement.style.textShadow = '0 0 20px rgba(255, 215, 0, 0.8)';
-            this.subElement.style.textShadow = '0 0 15px rgba(255, 165, 0, 0.7)';
-            
-            // Create burst effect
-            this.createHoverBurst();
+            // Create sparkle burst
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => this.createSparkleParticle(), i * 80);
+            }
         });
 
-        this.logoSection.addEventListener('mouseleave', () => {
+        this.logoFrame.addEventListener('mouseleave', () => { // Ubah ke logoFrame
             if (!this.mainElement || !this.subElement) return;
             
-            // Reset transforms
-            this.mainElement.style.transform = '';
-            this.subElement.style.transform = '';
-            
-            // Return to animated glow
+            // Return to normal animation
             setTimeout(() => {
                 this.createPulsatingGlow();
-                this.createFloatEffect();
-            }, 100);
-        });
-        
-        // Tambahkan event listener untuk resize
-        window.addEventListener('resize', () => {
-            this.adjustFontSizes();
+            }, 200);
         });
     }
 
-    createHoverBurst() {
-        for (let i = 0; i < 2; i++) {
-            setTimeout(() => {
-                if (this.logoSection) {
-                    this.createSparkleParticle();
-                }
-            }, i * 200);
-        }
+    setupResizeListener() {
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                this.setOptimalFontSize();
+            }, 250);
+        });
     }
 }
+
+// Initialize ketika DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        window.textLogoAnimator = new TextLogoAnimator();
+    }, 500);
+});
 
 // ===== BRAND MARQUEE ANIMATOR =====
 class BrandMarqueeAnimator {
