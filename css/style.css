@@ -104,25 +104,105 @@ body {
     gap: clamp(15px, 2.5vw, 25px);
     flex-wrap: nowrap;
     min-width: 0;
-    align-items: stretch; /* Pastikan tinggi sama */
+    align-items: stretch;
 }
 
-/* Logo Section - Untuk Teks */
-.logo-section {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: clamp(120px, 18vw, 200px);
-    max-width: clamp(140px, 22vw, 220px);
-    height: clamp(50px, 8vh, 75px);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: clamp(8px, 1.2vw, 12px) clamp(12px, 2vw, 18px);
-    border: 1px solid rgba(100, 100, 255, 0.2);
-    overflow: hidden;
+/* Frame dengan efek mewah */
+.logo-frame {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(20, 20, 40, 0.95) 0%,
+        rgba(30, 30, 60, 0.9) 50%,
+        rgba(40, 40, 80, 0.85) 100%);
+    border-radius: 16px; /* Lebih rounded */
+    border: 2px solid;
+    border-image: linear-gradient(45deg, 
+        #FFD700 0%,
+        #FFA500 50%,
+        #FFD700 100%) 1;
     position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(255, 215, 0, 0.15),
+        inset 0 0 20px rgba(255, 215, 0, 0.1);
+    padding: 8px 12px; /* Padding yang cukup untuk teks */
     box-sizing: border-box;
+}
+
+/* Hover effects - pindah ke .logo-frame */
+.logo-frame:hover {
+    border-image: linear-gradient(45deg, 
+        #FFD700 0%,
+        #FFFFFF 50%,
+        #FFD700 100%) 1;
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(255, 215, 0, 0.3),
+        0 0 80px rgba(255, 215, 0, 0.2),
+        inset 0 0 30px rgba(255, 215, 0, 0.15);
+}
+
+.logo-frame:hover .main-text {
+    text-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.9),
+        0 0 60px rgba(255, 215, 0, 0.6),
+        0 0 80px rgba(255, 215, 0, 0.3);
+    transform: scale(1.05);
+    background-size: 200% 200%;
+    animation: textGradientShift 2s linear infinite;
+}
+
+.logo-frame:hover .sub-text {
+    text-shadow: 
+        0 2px 5px rgba(0, 0, 0, 0.6),
+        0 0 35px rgba(255, 165, 0, 0.8),
+        0 0 50px rgba(255, 165, 0, 0.5),
+        0 0 65px rgba(255, 165, 0, 0.3);
+    transform: scale(1.05);
+}
+
+/* Glow effect dalam */
+.logo-inner-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 215, 0, 0.15) 0%,
+        rgba(255, 215, 0, 0.05) 50%,
+        transparent 70%
+    );
+    opacity: 0.6;
+    filter: blur(10px);
+    z-index: 1;
+}
+
+/* Shine effect */
+.logo-shine-effect {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: 0.8s;
+    z-index: 2;
+}
+
+.logo-section:hover .logo-shine-effect {
+    left: 150%;
 }
 
 .text-logo {
@@ -134,137 +214,250 @@ body {
     line-height: 1;
     width: 100%;
     height: 100%;
+    position: relative;
+    z-index: 3;
+    padding: 2px 0;
+    box-sizing: border-box;
 }
 
 .main-text {
-    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem); /* PERBESAR */
     font-weight: 900;
-    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    background: linear-gradient(45deg, 
+        #FFD700 0%,
+        #FFF8DC 25%,
+        #FFD700 50%,
+        #FFA500 75%,
+        #FFD700 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    line-height: 0.95;
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(255, 215, 0, 0.6),
+        0 0 35px rgba(255, 215, 0, 0.4);
+    letter-spacing: 0.8px; /* Kurangi letter-spacing */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    line-height: 0.9;
     display: block;
     width: 100%;
-    text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: -2px;
+    overflow: visible;
+    text-overflow: clip;
+    margin-bottom: 1px;
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Teks "PARTNERSHIP" - BOLD & CLEAR */
 .sub-text {
-    font-size: clamp(0.6rem, 1vw, 0.9rem);
-    font-weight: 1000;
-    background: linear-gradient(45deg, #FFA500, #FFD700, #FFA500);
+    font-size: clamp(0.8rem, 1.4vw, 1.2rem); /* PERBESAR */
+    font-weight: 800;
+    background: linear-gradient(45deg, 
+        #FFA500 0%,
+        #FFD700 40%,
+        #FFA500 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 15px rgba(255, 165, 0, 0.4);
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
+    text-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(255, 165, 0, 0.6),
+        0 0 30px rgba(255, 165, 0, 0.3);
+    letter-spacing: 1.2px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     line-height: 1;
     display: block;
     width: 100%;
-    text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: -1px;
+    overflow: visible;
+    text-overflow: clip;
+    margin-top: 0;
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* Logo corners untuk efek mewah */
+.logo-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    z-index: 4;
+    border: 2px solid #FFD700;
+    opacity: 0.7;
+}
+
+.corner-tl {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 8px 0 0 0;
+}
+
+.corner-tr {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 8px 0 0;
+}
+
+.corner-bl {
+    bottom: -2px;
+    left: -2px;
+    border-right: none;
+    border-top: none;
+    border-radius: 0 0 0 8px;
+}
+
+.corner-br {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+    border-radius: 0 0 8px 0;
+}
+
+/* Sparkle effect */
+.logo-sparkle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Hover effects - INTENSE */
+.logo-section:hover .logo-frame {
+    border-image: linear-gradient(45deg, 
+        #FFD700 0%,
+        #FFFFFF 50%,
+        #FFD700 100%) 1;
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(255, 215, 0, 0.3),
+        0 0 80px rgba(255, 215, 0, 0.2),
+        inset 0 0 30px rgba(255, 215, 0, 0.15);
 }
 
 .logo-section:hover .main-text {
-    text-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
-    transform: scale(1.03);
+    text-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.9),
+        0 0 60px rgba(255, 215, 0, 0.6),
+        0 0 80px rgba(255, 215, 0, 0.3);
+    transform: scale(1.05);
+    background-size: 200% 200%;
+    animation: textGradientShift 2s linear infinite;
 }
 
-/* Hover effects */
 .logo-section:hover .sub-text {
-    text-shadow: 0 0 20px rgba(255, 165, 0, 0.7);
-    transform: scale(1.03);
-}
-
-.logo-section:hover .gang-text {
-    text-shadow: 0 0 25px rgba(255, 165, 0, 0.7);
+    text-shadow: 
+        0 2px 5px rgba(0, 0, 0, 0.6),
+        0 0 35px rgba(255, 165, 0, 0.8),
+        0 0 50px rgba(255, 165, 0, 0.5),
+        0 0 65px rgba(255, 165, 0, 0.3);
     transform: scale(1.05);
 }
 
-/* Logo Marquee - New Feature */
-.logo-marquee {
-    width: 100%;
-    height: clamp(45px, 7vh, 65px);
-    background: rgba(10, 10, 30, 0.6);
-    border-radius: 15px;
-    border: 1px solid var(--accent-blue);
-    overflow: hidden;
-    position: relative;
-    padding: 10px 0;
-    flex: 1 1 auto;
-    min-width: 0;
+/* Responsive Design untuk .logo-frame */
+@media (max-width: 1024px) {
+    .logo-frame {
+        min-width: clamp(150px, 22vw, 250px);
+        max-width: clamp(170px, 25vw, 270px);
+        height: clamp(52px, 8vh, 80px);
+    }
+    
+    .main-text {
+        font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+    }
+    
+    .sub-text {
+        font-size: clamp(0.75rem, 1.2vw, 1rem);
+    }
 }
 
-.marquee-container {
-    display: flex;
-    animation: marqueeScroll 25s linear infinite;
-    height: 100%;
-    align-items: center;
+@media (max-width: 768px) {
+    .logo-frame {
+        min-width: clamp(140px, 20vw, 220px);
+        max-width: clamp(160px, 23vw, 240px);
+        height: clamp(50px, 7.5vh, 75px);
+        padding: 6px 10px;
+        border-radius: 14px;
+    }
+    
+    .main-text {
+        font-size: clamp(1.2rem, 2vw, 1.7rem);
+    }
+    
+    .sub-text {
+        font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    }
 }
 
-/* Logo Slide dengan ukuran KONSISTEN */
-.logo-slide {
-    flex-shrink: 0;
-    width: clamp(70px, 12vw, 100px);
-    height: clamp(35px, 5vh, 45px);
-    margin: 0 clamp(8px, 1.5vw, 15px);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(100, 100, 255, 0.2);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    overflow: hidden;
-    padding: 8px;
-    position: relative;
+@media (max-width: 480px) {
+    .logo-frame {
+        min-width: clamp(130px, 18vw, 200px);
+        max-width: clamp(150px, 21vw, 220px);
+        height: clamp(48px, 7vh, 70px);
+        padding: 5px 8px;
+        border-radius: 12px;
+        border-width: 1.5px;
+    }
+    
+    .main-text {
+        font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    }
+    
+    .sub-text {
+        font-size: clamp(0.65rem, 1vw, 0.8rem);
+    }
+    
+    .logo-corner {
+        width: 15px;
+        height: 15px;
+    }
 }
 
-/* Style untuk gambar di dalam logo slide - FIXED SIZE */
-.logo-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    filter: brightness(1.1);
-    transition: all 0.5s ease;
-    transform: scale(0.9);
+@media (max-width: 360px) {
+    .logo-frame {
+        min-width: 120px;
+        max-width: 180px;
+        height: 45px;
+        padding: 4px 6px;
+        border-radius: 10px;
+    }
+    
+    .main-text {
+        font-size: 1rem;
+    }
+    
+    .sub-text {
+        font-size: 0.6rem;
+    }
+    
+    /* Sembunyikan corners di sangat kecil */
+    .logo-corner {
+        display: none;
+    }
 }
 
-/* Hover effects untuk logo slides */
-.logo-slide:hover {
-    transform: translateY(-5px) scale(1.05);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 
-        0 10px 25px rgba(100, 100, 255, 0.3),
-        0 0 30px rgba(255, 215, 0, 0.2);
-    border-color: rgba(255, 215, 0, 0.5);
-}
-
-.logo-slide:hover img {
-    transform: scale(1.1);
-    filter: brightness(1.3) contrast(1.2);
-}
-
-@keyframes marqueeScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* Pause animation on hover */
-.logo-marquee:hover .marquee-container {
-    animation-play-state: paused;
+/* Animasi gradient bergerak */
+@keyframes textGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* Hero Banner - From Original */
@@ -1113,81 +1306,137 @@ body {
     animation: particleFloat 1s ease-out forwards;
 }
 
-* Fix for specific zoom levels */
-@media (max-width: 768px) {
+/* Responsive Design - FIXED untuk tidak terpotong */
+@media (max-width: 1024px) {
     .logo-section {
-        min-width: 110px;
-        max-width: 150px;
-        height: 55px;
-        padding: 6px 8px;
+        min-width: clamp(150px, 22vw, 250px);
+        max-width: clamp(170px, 25vw, 270px);
+        height: clamp(52px, 8vh, 80px);
     }
     
     .main-text {
-        font-size: clamp(1rem, 1.8vw, 1.4rem);
-        margin-bottom: -1px;
-        letter-spacing: 0.3px;
+        font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+        letter-spacing: 0.6px;
     }
     
     .sub-text {
-        font-size: clamp(0.5rem, 0.9vw, 0.7rem);
-        letter-spacing: 0.8px;
-        margin-top: 0;
+        font-size: clamp(0.75rem, 1.2vw, 1rem);
+        letter-spacing: 1px;
     }
+}
 
-    .header-content {
-        gap: 8px;
+@media (max-width: 768px) {
+    .logo-section {
+        min-width: clamp(140px, 20vw, 220px);
+        max-width: clamp(160px, 23vw, 240px);
+        height: clamp(50px, 7.5vh, 75px);
+    }
+    
+    .logo-frame {
+        padding: 6px 10px;
+        border-radius: 14px;
+    }
+    
+    .main-text {
+        font-size: clamp(1.2rem, 2vw, 1.7rem);
+        letter-spacing: 0.5px;
+        text-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.5),
+            0 0 20px rgba(255, 215, 0, 0.5),
+            0 0 30px rgba(255, 215, 0, 0.3);
+    }
+    
+    .sub-text {
+        font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+        letter-spacing: 0.8px;
+        text-shadow: 
+            0 1px 3px rgba(0, 0, 0, 0.5),
+            0 0 15px rgba(255, 165, 0, 0.5),
+            0 0 25px rgba(255, 165, 0, 0.2);
     }
 }
 
 @media (max-width: 480px) {
     .logo-section {
-        min-width: 90px;
-        max-width: 120px;
-        height: 45px;
-        padding: 4px 6px;
+        min-width: clamp(130px, 18vw, 200px);
+        max-width: clamp(150px, 21vw, 220px);
+        height: clamp(48px, 7vh, 70px);
+    }
+    
+    .logo-frame {
+        padding: 5px 8px;
+        border-radius: 12px;
+        border-width: 1.5px;
     }
     
     .main-text {
-        font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-        line-height: 0.9;
+        font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+        letter-spacing: 0.3px;
+        line-height: 0.85;
+        margin-bottom: 0;
     }
     
     .sub-text {
-        font-size: clamp(0.45rem, 0.8vw, 0.65rem);
-        letter-spacing: 0.7px;
+        font-size: clamp(0.65rem, 1vw, 0.8rem);
+        letter-spacing: 0.6px;
+        line-height: 0.9;
+        margin-top: 0;
+    }
+    
+    .logo-corner {
+        width: 15px;
+        height: 15px;
     }
 }
 
-/* Fix for very small screens */
 @media (max-width: 360px) {
     .logo-section {
-        min-width: 80px;
-        max-width: 100px;
-        height: 40px;
-        padding: 3px 5px;
+        min-width: 120px;
+        max-width: 180px;
+        height: 45px;
+    }
+    
+    .logo-frame {
+        padding: 4px 6px;
+        border-radius: 10px;
     }
     
     .main-text {
-        font-size: 0.85rem;
+        font-size: 1rem;
+        letter-spacing: 0.2px;
     }
     
     .sub-text {
-        font-size: 0.5rem;
+        font-size: 0.6rem;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Sembunyikan corners di sangat kecil */
+    .logo-corner {
+        display: none;
     }
 }
 
-/* Prevent text breaking on zoom */
+/* Fix untuk semua ukuran - Pastikan teks tidak terpotong */
 .text-logo {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    overflow: visible !important;
 }
 
 .main-text, .sub-text {
-    max-width: 100%;
-    overflow-wrap: normal;
-    word-wrap: normal;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    min-width: 0 !important;
+}
+
+/* Auto-adjust font size berdasarkan panjang teks */
+.logo-section[data-text-length="long"] .main-text {
+    font-size: clamp(1.2rem, 2vw, 1.8rem) !important;
+    letter-spacing: 0.4px !important;
+}
+
+.logo-section[data-text-length="long"] .sub-text {
+    font-size: clamp(0.7rem, 1.1vw, 1rem) !important;
+    letter-spacing: 0.7px !important;
 }
 
 /* Responsive Design */
@@ -1297,45 +1546,52 @@ body {
     }
 }
 
-/* Sparkle Animation - Tambahkan di akhir CSS */
+/* Sparkle Particles Animation */
 @keyframes sparkleFloat {
     0% {
         opacity: 0;
-        transform: translateY(0) scale(0) rotate(0deg);
+        transform: translateY(0) scale(0.3) rotate(0deg);
     }
-    50% {
+    30% {
         opacity: 1;
-        transform: translateY(-15px) scale(1) rotate(180deg);
+        transform: translateY(-10px) scale(1) rotate(90deg);
+    }
+    70% {
+        opacity: 0.8;
+        transform: translateY(-25px) scale(0.8) rotate(180deg);
     }
     100% {
         opacity: 0;
-        transform: translateY(-30px) scale(0) rotate(360deg);
+        transform: translateY(-40px) scale(0.3) rotate(360deg);
     }
 }
 
-.text-sparkle {
-    animation: sparkleFloat 1.2s ease-out forwards;
-    user-select: none;
-    -webkit-user-select: none;
+.sparkle-particle {
+    animation: sparkleFloat 1.5s ease-out forwards;
+    will-change: transform, opacity;
 }
 
-/* Smooth transitions */
-.main-text, .sub-text {
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Prevent text selection */
+/* Ensure logo section handles particles well */
 .logo-section {
-    user-select: none;
-    -webkit-user-select: none;
+    overflow: visible !important;
 }
 
-/* Perfect alignment */
-.text-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transform: translateZ(0); /* Hardware acceleration */
-    will-change: transform;
+/* Pulse animation for logo frame */
+@keyframes framePulse {
+    0%, 100% {
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.5),
+            0 0 40px rgba(255, 215, 0, 0.15),
+            inset 0 0 20px rgba(255, 215, 0, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 10px 35px rgba(0, 0, 0, 0.6),
+            0 0 50px rgba(255, 215, 0, 0.2),
+            inset 0 0 25px rgba(255, 215, 0, 0.15);
+    }
+}
+
+.logo-frame {
+    animation: framePulse 4s ease-in-out infinite;
 }
